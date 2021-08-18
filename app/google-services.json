@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "495059202761",
+    "firebase_url": "https://ecommerse-groceryapp-default-rtdb.firebaseio.com",
+    "project_id": "ecommerse-groceryapp",
+    "storage_bucket": "ecommerse-groceryapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:495059202761:android:378854a4e10f179e1b1318",
+        "android_client_info": {
+          "package_name": "com.anstudios.ecommerseadmin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "495059202761-68ju6k7id77m6j9ht50097pq8hrqd9e7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCG1N8ij6ig74Mn4tTv3eFOVUbfFHgi8y0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "495059202761-68ju6k7id77m6j9ht50097pq8hrqd9e7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:495059202761:android:13fee88e1cbf57db1b1318",
+        "android_client_info": {
+          "package_name": "com.anstudios.ecommersestore"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "495059202761-68ju6k7id77m6j9ht50097pq8hrqd9e7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCG1N8ij6ig74Mn4tTv3eFOVUbfFHgi8y0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "495059202761-68ju6k7id77m6j9ht50097pq8hrqd9e7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
