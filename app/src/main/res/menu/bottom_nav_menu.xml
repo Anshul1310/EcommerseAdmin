@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Profile" android:icon="@drawable/vector_person_round"/>
+    <item android:title="Products" android:icon="@drawable/vector_round_orders" />
+    <item android:title="Home" android:icon="@drawable/vector_home_round"/>
+    <item android:title="Orders" android:icon="@drawable/vector_money"/>
+    <item android:title="Settings" android:icon="@drawable/vector_settings"/>
+</menu>
