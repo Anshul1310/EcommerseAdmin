@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
-                    android:id="@+id/imageView4"
+                    android:id="@+id/nav_bar_profileImage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="60dp"
@@ -39,7 +39,7 @@
                     app:srcCompat="@drawable/logo_carrot" />
 
                 <TextView
-                    android:id="@+id/textView7"
+                    android:id="@+id/nav_bar_name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -51,17 +51,17 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+                    app:layout_constraintTop_toBottomOf="@+id/nav_bar_profileImage" />
 
                 <TextView
-                    android:id="@+id/textView8"
+                    android:id="@+id/nav_bar_email"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
                     android:fontFamily="@font/gilroy_medium"
                     android:text="Enter your credentials to continue."
-                    app:layout_constraintStart_toStartOf="@+id/textView7"
-                    app:layout_constraintTop_toBottomOf="@+id/textView7" />
+                    app:layout_constraintStart_toStartOf="@+id/nav_bar_name"
+                    app:layout_constraintTop_toBottomOf="@+id/nav_bar_name" />
 
                 <TextView
                     android:id="@+id/textView9"
@@ -70,7 +70,7 @@
                     android:layout_marginTop="20dp"
                     android:fontFamily="@font/gilroy_medium"
                     android:text="Email Address"
-                    app:layout_constraintStart_toStartOf="@+id/textView8"
+                    app:layout_constraintStart_toStartOf="@+id/nav_bar_email"
                     app:layout_constraintTop_toBottomOf="@+id/register_name" />
 
                 <EditText
@@ -172,8 +172,8 @@
                     android:layout_marginTop="40dp"
                     android:fontFamily="@font/gilroy_medium"
                     android:text="Full Name"
-                    app:layout_constraintStart_toStartOf="@+id/textView8"
-                    app:layout_constraintTop_toBottomOf="@+id/textView8" />
+                    app:layout_constraintStart_toStartOf="@+id/nav_bar_email"
+                    app:layout_constraintTop_toBottomOf="@+id/nav_bar_email" />
 
                 <EditText
                     android:id="@+id/register_name"
