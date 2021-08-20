@@ -1,5 +1,12 @@
 package com.anstudios.ecommerseadmin;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,23 +15,14 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-
 import com.anstudios.ecommerseadmin.fragments.HomeFragment;
 import com.anstudios.ecommerseadmin.fragments.NotificationFragment;
 import com.anstudios.ecommerseadmin.fragments.OrdersFragment;
 import com.anstudios.ecommerseadmin.fragments.PincodeFragment;
 import com.anstudios.ecommerseadmin.fragments.ProductsFragment;
-import com.anstudios.ecommerseadmin.fragments.ProfileFragment;
 import com.anstudios.ecommerseadmin.fragments.SettingFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
-import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
@@ -45,16 +43,16 @@ public class MainActivity extends AppCompatActivity {
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-        bottomNavigationView=findViewById(R.id.bottom_nav_main);
+        bottomNavigationView = findViewById(R.id.bottom_nav_main);
         getSupportFragmentManager()
                 .beginTransaction()
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                .replace(R.id.frame_layout, new ProfileFragment())
+                .replace(R.id.frame_layout, new PincodeFragment())
                 .commit();
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch(item.getItemId()){
+                switch (item.getItemId()) {
                     case R.id.bottom_nav_pincode:
                         getSupportFragmentManager()
                                 .beginTransaction()
@@ -100,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
         addNavListener();
     }
 
-    private void addNavListener(){
+    private void addNavListener() {
         findViewById(R.id.nav_bar_home_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
