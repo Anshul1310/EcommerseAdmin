@@ -1,9 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="Add Pincode" android:id="@+id/bottom_nav_pincode" android:icon="@drawable/vector_location_round"/>
-    <item android:title="Products" android:id="@+id/bottom_nav_products" android:icon="@drawable/vector_round_orders" />
-    <item android:title="Home" android:id="@+id/bottom_nav_home" android:icon="@drawable/vector_home_round"/>
-    <item android:title="Orders" android:id="@+id/bottom_nav_orders" android:icon="@drawable/vector_money"/>
-    <item android:title="Settings" android:id="@+id/bottom_nav_settings" android:icon="@drawable/vector_settings"/>
+    <item
+        android:id="@+id/bottom_nav_pincode"
+        android:icon="@drawable/vector_location_round"
+        android:title="Add Pincode" />
+    <item
+        android:id="@+id/bottom_nav_products"
+        android:icon="@drawable/vector_round_orders"
+        android:title="Products" />
+    <item
+        android:id="@+id/bottom_nav_home"
+        android:icon="@drawable/vector_home_round"
+        android:title="Home" />
+    <item
+        android:id="@+id/bottom_nav_orders"
+        android:icon="@drawable/vector_money"
+        android:title="Orders" />
+    <item
+        android:id="@+id/bottom_nav_settings"
+        android:icon="@drawable/vector_settings"
+        android:title="Settings" />
 </menu>

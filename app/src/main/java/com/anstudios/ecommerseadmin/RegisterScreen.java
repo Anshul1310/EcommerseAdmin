@@ -1,9 +1,5 @@
 package com.anstudios.ecommerseadmin;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +9,10 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -57,10 +57,10 @@ public class RegisterScreen extends AppCompatActivity {
                         @Override
                         public void onSuccess(AuthResult authResult) {
                             progressDialog.show();
-                            HashMap<String,String> hashMap=new HashMap<>();
-                            hashMap.put("name",name.getText().toString());
-                            hashMap.put("email",email.getText().toString());
-                            hashMap.put("password",password.getText().toString());
+                            HashMap<String, String> hashMap = new HashMap<>();
+                            hashMap.put("name", name.getText().toString());
+                            hashMap.put("email", email.getText().toString());
+                            hashMap.put("password", password.getText().toString());
                             FirebaseDatabase.getInstance().getReference("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                     .setValue(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override

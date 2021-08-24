@@ -9,16 +9,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.anstudios.ecommerseadmin.R;
-import com.anstudios.ecommerseadmin.models.modelOrders;
+import com.anstudios.ecommerseadmin.models.modelProducts;
 
 import java.util.ArrayList;
 
-public class adapterOrders extends RecyclerView.Adapter<adapterOrders.viewHolder> {
+public class adaptersProducts extends RecyclerView.Adapter<adaptersProducts.viewHolder> {
 
     private Context context;
-    private ArrayList<modelOrders> arrayList;
+    private ArrayList<modelProducts> arrayList;
 
-    public adapterOrders(Context context, ArrayList<modelOrders> arrayList) {
+    public adaptersProducts(Context context, ArrayList<modelProducts> arrayList) {
         this.context = context;
         this.arrayList = arrayList;
     }
@@ -26,7 +26,7 @@ public class adapterOrders extends RecyclerView.Adapter<adapterOrders.viewHolder
     @NonNull
     @Override
     public viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new viewHolder(LayoutInflater.from(context).inflate(R.layout.layout_orders, parent, false));
+        return new viewHolder(LayoutInflater.from(context).inflate(R.layout.layout_products, parent, false));
     }
 
     @Override

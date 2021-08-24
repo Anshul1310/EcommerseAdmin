@@ -32,10 +32,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/product_sans_regular"
-                    android:text="Full Name"
+                    android:text="Pincode"
                     android:textColor="#000" />
 
                 <EditText
+                    android:id="@+id/dialog_pincode_add"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/product_sans_bold"
@@ -53,10 +54,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/product_sans_regular"
-                    android:text="Email Address"
+                    android:text="Delivery Charges"
                     android:textColor="#000" />
 
                 <EditText
+                    android:id="@+id/dialog_pincode_charge"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/product_sans_bold"
@@ -74,41 +76,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/product_sans_regular"
-                    android:text="Address"
+                    android:text="COD Avialablity"
                     android:textColor="#000" />
 
-                <EditText
+                <CheckBox
+                    android:id="@+id/dialog_pincode_checkbox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/product_sans_bold"
-                    android:inputType="textNoSuggestions"
-                    android:textColor="#000" />
-            </LinearLayout>
+                    android:text="Not available" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/product_sans_regular"
-                    android:text="About"
-                    android:textColor="#000" />
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/product_sans_bold"
-                    android:inputType="textNoSuggestions"
-                    android:textColor="#000" />
             </LinearLayout>
         </LinearLayout>
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/dialog_pincode_save_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/product_sans_medium"
@@ -120,6 +101,7 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
         <TextView
+            android:id="@+id/dialog_pincode_cancel_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -129,18 +111,19 @@
             android:text="Cancel"
             android:textColor="#000"
             android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="@+id/textView6"
-            app:layout_constraintEnd_toStartOf="@+id/textView6"
-            app:layout_constraintTop_toTopOf="@+id/textView6" />
+            app:layout_constraintBottom_toBottomOf="@+id/dialog_pincode_save_btn"
+            app:layout_constraintEnd_toStartOf="@+id/dialog_pincode_save_btn"
+            app:layout_constraintTop_toTopOf="@+id/dialog_pincode_save_btn" />
 
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/vector_person_round"
+            android:src="@drawable/vector_location_round"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="#000" />
 
         <TextView
             android:id="@+id/textView5"
@@ -148,7 +131,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:fontFamily="@font/product_sans_regular"
-            android:text="Profile Settings"
+            android:text="Add/Edit Pincode"
             android:textColor="#000"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@+id/imageView"

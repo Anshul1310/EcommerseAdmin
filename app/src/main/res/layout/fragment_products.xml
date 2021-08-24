@@ -57,6 +57,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageView
+                        android:id="@+id/fruits_veges_add_btn"
                         android:layout_width="wrap_content"
                         android:layout_height="28dp"
                         android:layout_marginRight="10dp"
@@ -98,6 +99,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageView
+                        android:id="@+id/oils_ghee_add_btn"
                         android:layout_width="wrap_content"
                         android:layout_height="28dp"
                         android:layout_marginRight="10dp"
@@ -139,6 +141,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageView
+                        android:id="@+id/meats_fishes_add_btn"
                         android:layout_width="wrap_content"
                         android:layout_height="28dp"
                         android:layout_marginRight="10dp"
@@ -181,7 +184,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageView
-                        android:id="@+id/imageView2"
+                        android:id="@+id/bakery_snacks_add_btn"
                         android:layout_width="wrap_content"
                         android:layout_height="28dp"
                         android:layout_marginRight="10dp"
@@ -223,6 +226,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageView
+                        android:id="@+id/dairy_products_add_btn"
                         android:layout_width="wrap_content"
                         android:layout_height="28dp"
                         android:layout_marginRight="10dp"
@@ -264,6 +268,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageView
+                        android:id="@+id/beverages_add_btn"
                         android:layout_width="wrap_content"
                         android:layout_height="28dp"
                         android:layout_marginRight="10dp"

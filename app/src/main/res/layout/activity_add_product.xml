@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddProduct">
+
+    <TextView
+        android:id="@+id/textView22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/product_sans_black"
+        android:text="Add Product"
+        android:textColor="@color/apptheme"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="15dp"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView22">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/product_sans_medium"
+                    android:text="Name"
+                    android:textColor="#000" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:elevation="5dp"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="0dp"
+                    app:strokeColor="#ccc"
+                    app:strokeWidth="1dp">
+
+                    <EditText
+                        android:id="@+id/add_product_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:minHeight="50dp" />
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/product_sans_medium"
+                    android:text="Description"
+                    android:textColor="#000" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="5dp"
+                    android:elevation="5dp"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="5dp"
+                    app:strokeColor="#ccc"
+                    app:strokeWidth="1dp">
+
+                    <EditText
+                        android:id="@+id/add_product_description"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@null" />
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/product_sans_medium"
+                    android:text=" Price for 1(kg, unit, piece, dozen)"
+                    android:textColor="#000" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="80dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="5dp"
+                    android:elevation="5dp"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="5dp"
+                    app:strokeColor="#ccc"
+                    app:strokeWidth="1dp">
+
+                    <EditText
+                        android:id="@+id/add_product_price"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@null" />
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/product_sans_medium"
+                    android:text="Unit For Measuring"
+                    android:textColor="#000" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="5dp"
+                    android:elevation="5dp"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="5dp"
+                    app:strokeColor="#ccc"
+                    app:strokeWidth="1dp">
+
+                    <Spinner
+                        android:id="@+id/add_product_spinner"
+                        android:layout_width="24dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|end"
+                        android:layout_margin="10dp"
+                        android:spinnerMode="dialog" />
+
+                    <TextView
+                        android:id="@+id/add_product_unit_measuring"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start|center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:fontFamily="@font/product_sans_medium"
+                        android:text="Kilogram"
+                        android:textColor="#000" />
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/product_sans_medium"
+                    android:text="Small Image"
+                    android:textColor="#000" />
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:onClick="addImageSmallBtn"
+                    app:cardBackgroundColor="#43A047"
+                    app:cardCornerRadius="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/product_sans_medium"
+                        android:text="Add Image"
+                        android:textColor="#fff" />
+                </androidx.cardview.widget.CardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="5dp"
+                    android:elevation="5dp"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="5dp"
+                    app:strokeColor="#ccc"
+                    app:strokeWidth="1dp">
+
+                    <ImageView
+                        android:id="@+id/add_product_smallImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/product_sans_medium"
+                    android:text="Big Image"
+                    android:textColor="#000" />
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:onClick="addImageBigBtn"
+                    app:cardBackgroundColor="#43A047"
+                    app:cardCornerRadius="5dp">
+
+                    <TextView
+                        android:id="@+id/textView28"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/product_sans_medium"
+                        android:text="Add Image"
+                        android:textColor="#fff">
+
+
+                    </TextView>
+                </androidx.cardview.widget.CardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="5dp"
+                    android:elevation="5dp"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="5dp"
+                    app:strokeColor="#ccc"
+                    app:strokeWidth="1dp">
+
+                    <ImageView
+                        android:id="@+id/add_product_bigImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:orientation="horizontal">
+
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/add_product_saveBtn"
+                    android:layout_width="80dp"
+                    android:layout_height="45dp"
+                    android:elevation="0dp"
+                    app:cardBackgroundColor="@color/apptheme"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/product_sans_medium"
+                        android:text="Save"
+                        android:textColor="#fff"
+                        android:textSize="16sp" />
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/add_product_deleteBtn"
+                    android:layout_width="80dp"
+                    android:layout_height="45dp"
+                    android:layout_marginRight="20dp"
+                    android:elevation="0dp"
+                    app:cardBackgroundColor="#E53935"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/add_product_saveBtn"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/product_sans_medium"
+                        android:text="Delete"
+                        android:textColor="#fff"
+                        android:textSize="16sp" />
+
+                </androidx.cardview.widget.CardView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
