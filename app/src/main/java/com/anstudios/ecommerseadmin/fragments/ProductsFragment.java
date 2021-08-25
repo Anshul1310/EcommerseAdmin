@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -150,36 +151,35 @@ public class ProductsFragment extends Fragment {
         FirebaseDatabase.getInstance().getReference("products").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                try {
+                    HashMap<String, HashMap<String, String>> hashMap = (HashMap<String, HashMap<String, String>>) snapshot.getValue();
+                    HashMap<String, String> child;
+                    for (int i = 0; i < hashMap.size(); i++) {
+                        child = hashMap.get(hashMap.keySet().toArray()[i]);
+                        if (child.get("category").equals("fruitsAndVeges")) {
+                            arrayListFruits.add(new modelProducts(child.get("category"), child.get("smallImage"), child.get("bigImage"), child.get("title"), child.get("description"), child.get("price"), child.get("measuringUnit"), hashMap.keySet().toArray()[i] + ""));
+                        } else if (child.get("category").equals("bakery")) {
+                            arrayListBakery.add(new modelProducts(child.get("category"), child.get("smallImage"), child.get("bigImage"), child.get("title"), child.get("description"), child.get("price"), child.get("measuringUnit"), hashMap.keySet().toArray()[i] + ""));
+                        } else if (child.get("category").equals("oilsAndGhee")) {
+                            arrayListOils.add(new modelProducts(child.get("category"), child.get("smallImage"), child.get("bigImage"), child.get("title"), child.get("description"), child.get("price"), child.get("measuringUnit"), hashMap.keySet().toArray()[i] + ""));
+                        } else if (child.get("category").equals("dairyProducts")) {
+                            arrayListDairy.add(new modelProducts(child.get("category"), child.get("smallImage"), child.get("bigImage"), child.get("title"), child.get("description"), child.get("price"), child.get("measuringUnit"), hashMap.keySet().toArray()[i] + ""));
+                        } else if (child.get("category").equals("meat")) {
+                            arrayListMeats.add(new modelProducts(child.get("category"), child.get("smallImage"), child.get("bigImage"), child.get("title"), child.get("description"), child.get("price"), child.get("measuringUnit"), hashMap.keySet().toArray()[i] + ""));
+                        } else if (child.get("category").equals("beverages")) {
+                            arrayListBeverages.add(new modelProducts(child.get("category"), child.get("smallImage"), child.get("bigImage"), child.get("title"), child.get("description"), child.get("price"), child.get("measuringUnit"), hashMap.keySet().toArray()[i] + ""));
+                        }
+                        adapterBakery.notifyDataSetChanged();
+                        adapterBeverages.notifyDataSetChanged();
+                        adapterDairyProducts.notifyDataSetChanged();
+                        adapterFruits.notifyDataSetChanged();
+                        adapterOils.notifyDataSetChanged();
+                        adapterMeat.notifyDataSetChanged();
+                        progressDialog.cancel();
 
-                HashMap<String, HashMap<String, String>> hashMap = (HashMap<String, HashMap<String, String>>) snapshot.getValue();
-                HashMap<String, String> child;
-                for (int i = 0; i < hashMap.size(); i++) {
-                    child = hashMap.get(hashMap.keySet().toArray()[i]);
-                    if (child.get("category").equals("fruitsAndVeges")) {
-                        arrayListFruits.add(new modelProducts());
-                    } else if (child.get("category").equals("bakery")) {
-                        arrayListBakery.add(new modelProducts());
-                    } else if (child.get("category").equals("oilsAndGhee")) {
-                        arrayListOils.add(new modelProducts());
-
-                    } else if (child.get("category").equals("dairyProducts")) {
-                        arrayListDairy.add(new modelProducts());
-
-                    } else if (child.get("category").equals("meat")) {
-                        arrayListMeats.add(new modelProducts());
-
-                    } else if (child.get("category").equals("beverages")) {
-                        arrayListBeverages.add(new modelProducts());
                     }
-
-                    adapterBakery.notifyDataSetChanged();
-                    adapterBeverages.notifyDataSetChanged();
-                    adapterDairyProducts.notifyDataSetChanged();
-                    adapterFruits.notifyDataSetChanged();
-                    adapterOils.notifyDataSetChanged();
-                    adapterMeat.notifyDataSetChanged();
-                    progressDialog.cancel();
-
+                } catch (Exception exception) {
+                    Toast.makeText(getContext(), exception.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
 

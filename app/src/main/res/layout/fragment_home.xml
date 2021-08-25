@@ -30,6 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:id="@+id/home_about"
             android:ellipsize="end"
             android:fontFamily="@font/product_sans_regular"
             android:maxLines="4"

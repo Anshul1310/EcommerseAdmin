@@ -32,10 +32,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/product_sans_regular"
-                    android:text="Full Name"
+                    android:text="Store Name"
                     android:textColor="#000" />
 
                 <EditText
+                    android:id="@+id/dialog_edit_details_store_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/product_sans_bold"
@@ -53,10 +54,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/product_sans_regular"
-                    android:text="Email Address"
+                    android:text="Contact Email"
                     android:textColor="#000" />
 
                 <EditText
+                    android:id="@+id/dialog_edit_details_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/product_sans_bold"
@@ -74,10 +76,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/product_sans_regular"
-                    android:text="Address"
+                    android:text="Store Address"
                     android:textColor="#000" />
 
                 <EditText
+                    android:id="@+id/dialog_edit_details_store_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/product_sans_bold"
@@ -99,6 +102,7 @@
                     android:textColor="#000" />
 
                 <EditText
+                    android:id="@+id/dialog_edit_details_about"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/product_sans_bold"
@@ -108,11 +112,12 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/dialog_edit_details_save_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/product_sans_medium"
             android:text="Save"
+            android:padding="10dp"
             android:textColor="@color/apptheme"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -123,15 +128,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="10dp"
+            android:padding="10dp"
+            android:id="@+id/dialog_edit_details_cancel_btn"
             android:layout_marginBottom="20dp"
             android:fontFamily="@font/product_sans_medium"
             android:text="Cancel"
             android:textColor="#000"
             android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="@+id/textView6"
-            app:layout_constraintEnd_toStartOf="@+id/textView6"
-            app:layout_constraintTop_toTopOf="@+id/textView6" />
+            app:layout_constraintBottom_toBottomOf="@+id/dialog_edit_details_save_btn"
+            app:layout_constraintEnd_toStartOf="@+id/dialog_edit_details_save_btn"
+            app:layout_constraintTop_toTopOf="@+id/dialog_edit_details_save_btn" />
 
 
         <ImageView
