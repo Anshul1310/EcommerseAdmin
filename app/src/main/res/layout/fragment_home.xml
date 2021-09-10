@@ -106,7 +106,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/imageView8"
+                        android:id="@+id/frag_home_total_earnings"
                         android:layout_width="wrap_content"
                         android:layout_height="60dp"
                         android:layout_marginBottom="10dp"
@@ -132,7 +132,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/imageView8" />
+                        app:layout_constraintTop_toBottomOf="@+id/frag_home_total_earnings" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -151,7 +151,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/imageView9"
+                        android:id="@+id/frag_home_total_sales"
                         android:layout_width="wrap_content"
                         android:layout_height="60dp"
                         android:layout_marginBottom="10dp"
@@ -167,17 +167,16 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/textView15"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:fontFamily="@font/product_sans_regular"
-                        android:text="Total Sales"
+                        android:text="Total Orders"
                         android:textSize="18sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/imageView9" />
+                        app:layout_constraintTop_toBottomOf="@+id/frag_home_total_sales" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -211,7 +210,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/imageView10"
+                        android:id="@+id/frag_home_total_products"
                         android:layout_width="wrap_content"
                         android:layout_height="60dp"
                         android:layout_marginBottom="10dp"
@@ -237,7 +236,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/imageView10" />
+                        app:layout_constraintTop_toBottomOf="@+id/frag_home_total_products" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -256,7 +255,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/imageView11"
+                        android:id="@+id/frag_home_total_customers"
                         android:layout_width="wrap_content"
                         android:layout_height="60dp"
                         android:layout_marginBottom="10dp"
@@ -282,7 +281,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/imageView11" />
+                        app:layout_constraintTop_toBottomOf="@+id/frag_home_total_customers" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

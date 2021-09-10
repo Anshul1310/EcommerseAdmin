@@ -101,7 +101,7 @@ public class AddProduct extends AppCompatActivity implements AdapterView.OnItemS
                                             .child(productId).setValue(null).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
-                                            startActivity(new Intent(AddProduct.this,MainActivity.class));
+                                            startActivity(new Intent(AddProduct.this, MainActivity.class));
                                             Toast.makeText(AddProduct.this, "Deleted Successfully", Toast.LENGTH_SHORT).show();
                                         }
                                     });
@@ -259,40 +259,74 @@ public class AddProduct extends AppCompatActivity implements AdapterView.OnItemS
     }
 
     private void uploadImageToDb() {
-        progressDialog.show();
-        if (isold) {
-            if (isBigImageChanged && !isSmallImageChanged) {
-                FirebaseStorage.getInstance().getReference("products").child(productId)
-                        .child("bigImage").putFile(smallUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        FirebaseStorage.getInstance().getReference("products").child(productId)
-                                .child("bigImage").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-                                bigurl = uri.toString();
-                                saveProductToDb();
-                            }
-                        });
-                    }
-                });
-            } else if (isSmallImageChanged && !isBigImageChanged) {
-                FirebaseStorage.getInstance().getReference("products").child(productId)
-                        .child("smallImage").putFile(smallUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        FirebaseStorage.getInstance().getReference("products").child(productId)
-                                .child("smallImage").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-                                smallurl = uri.toString();
-                                Toast.makeText(AddProduct.this, "image", Toast.LENGTH_SHORT).show();
-                                saveProductToDb();
-                            }
-                        });
-                    }
-                });
-            } else if (isSmallImageChanged && isBigImageChanged) {
+        try {
+            progressDialog.show();
+            if (isold) {
+                if (isBigImageChanged && !isSmallImageChanged) {
+                    FirebaseStorage.getInstance().getReference("products").child(productId)
+                            .child("bigImage").putFile(bigUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            FirebaseStorage.getInstance().getReference("products").child(productId)
+                                    .child("bigImage").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    bigurl = uri.toString();
+                                    saveProductToDb();
+                                }
+                            });
+                        }
+                    });
+                } else if (isSmallImageChanged && !isBigImageChanged) {
+                    FirebaseStorage.getInstance().getReference("products").child(productId)
+                            .child("smallImage").putFile(smallUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            FirebaseStorage.getInstance().getReference("products").child(productId)
+                                    .child("smallImage").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    smallurl = uri.toString();
+                                    Toast.makeText(AddProduct.this, "image", Toast.LENGTH_SHORT).show();
+                                    saveProductToDb();
+                                }
+                            });
+                        }
+                    });
+                } else if (isSmallImageChanged && isBigImageChanged) {
+                    FirebaseStorage.getInstance().getReference("products").child(productId)
+                            .child("smallImage").putFile(smallUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            FirebaseStorage.getInstance().getReference("products").child(productId)
+                                    .child("smallImage").getDownloadUrl()
+                                    .addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                        @Override
+                                        public void onSuccess(Uri uri) {
+                                            smallurl = uri.toString();
+                                            FirebaseStorage.getInstance().getReference("products").child(productId)
+                                                    .child("bigImage").putFile(bigUri)
+                                                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                                        @Override
+                                                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                                            FirebaseStorage.getInstance().getReference("products").child(productId)
+                                                                    .child("bigImage").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                                                @Override
+                                                                public void onSuccess(Uri uri) {
+                                                                    bigurl = uri.toString();
+                                                                    saveProductToDb();
+                                                                }
+                                                            });
+                                                        }
+                                                    });
+                                        }
+                                    });
+                        }
+                    });
+                } else {
+                    saveProductToDb();
+                }
+            } else {
                 FirebaseStorage.getInstance().getReference("products").child(productId)
                         .child("smallImage").putFile(smallUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
@@ -322,41 +356,10 @@ public class AddProduct extends AppCompatActivity implements AdapterView.OnItemS
                                 });
                     }
                 });
-            } else {
-                saveProductToDb();
             }
-        } else {
-            FirebaseStorage.getInstance().getReference("products").child(productId)
-                    .child("smallImage").putFile(smallUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    FirebaseStorage.getInstance().getReference("products").child(productId)
-                            .child("smallImage").getDownloadUrl()
-                            .addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri uri) {
-                                    smallurl = uri.toString();
-                                    FirebaseStorage.getInstance().getReference("products").child(productId)
-                                            .child("bigImage").putFile(bigUri)
-                                            .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                                @Override
-                                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                                    FirebaseStorage.getInstance().getReference("products").child(productId)
-                                                            .child("bigImage").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                                        @Override
-                                                        public void onSuccess(Uri uri) {
-                                                            bigurl = uri.toString();
-                                                            saveProductToDb();
-                                                        }
-                                                    });
-                                                }
-                                            });
-                                }
-                            });
-                }
-            });
+        } catch (Exception exception) {
+            Toast.makeText(this, exception.getMessage(), Toast.LENGTH_SHORT).show();
         }
-
     }
 
 

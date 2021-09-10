@@ -36,65 +36,70 @@ public class SettingFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_setting, container, false);
-        editDialog = view.findViewById(R.id.edit_dialog_btn);
-        contactAbout = view.findViewById(R.id.settings_about);
-        progressDialog=new ProgressDialog(getContext());
-        progressDialog.setMessage("Please wait while we are fetching the data.");
-        progressDialog.setCanceledOnTouchOutside(false);
-        contactAddress = view.findViewById(R.id.settings_store_address);
-        contactStoreName = view.findViewById(R.id.setiings_store_name);
-        contactEmail = view.findViewById(R.id.setting_contact_email);
-        email = view.findViewById(R.id.settings_email_address);
-        name = view.findViewById(R.id.settings_admin_name);
-        editDialog.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                View vobj = LayoutInflater.from(getContext()).inflate(R.layout.layout_edit_details, null);
-                builder.setView(vobj);
-                AlertDialog alertDialog = builder.create();
-                alertDialog.setCanceledOnTouchOutside(false);
-                EditText dialogName = vobj.findViewById(R.id.dialog_edit_details_store_name);
-                EditText dialogEmail = vobj.findViewById(R.id.dialog_edit_details_email);
-                EditText dialogAddress = vobj.findViewById(R.id.dialog_edit_details_store_address);
-                EditText dialogAbout = vobj.findViewById(R.id.dialog_edit_details_about);
-                TextView dialogCancel = vobj.findViewById(R.id.dialog_edit_details_cancel_btn);
-                TextView dialogSave = vobj.findViewById(R.id.dialog_edit_details_save_btn);
-                dialogSave.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        progressDialog.show();
-                        HashMap<String,String> hashMap=new HashMap<>();
-                        hashMap.put("about",dialogAbout.getText().toString());
-                        hashMap.put("storeAddress",dialogAddress.getText().toString());
-                        hashMap.put("storeName",dialogName.getText().toString());
-                        hashMap.put("storeEmail",dialogEmail.getText().toString());
-                        FirebaseDatabase.getInstance().getReference("storeInfo")
-                                .setValue(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                progressDialog.cancel();
-                                alertDialog.cancel();
-                                contactStoreName.setText(hashMap.get("storeName"));
-                                contactEmail.setText(hashMap.get("storeEmail"));
-                                contactAddress.setText(hashMap.get("storeAddress"));
-                                contactAbout.setText(hashMap.get("about"));
-                                Toast.makeText(getContext(), "Saved Successfully", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-                });
-                dialogCancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        alertDialog.cancel();
-                    }
-                });
+        try {
+            editDialog = view.findViewById(R.id.edit_dialog_btn);
+            contactAbout = view.findViewById(R.id.settings_about);
+            progressDialog = new ProgressDialog(getContext());
+            progressDialog.setMessage("Please wait while we are fetching the data.");
+            progressDialog.setCanceledOnTouchOutside(false);
+            contactAddress = view.findViewById(R.id.settings_store_address);
+            contactStoreName = view.findViewById(R.id.setiings_store_name);
+            contactEmail = view.findViewById(R.id.setting_contact_email);
+            email = view.findViewById(R.id.settings_email_address);
+            name = view.findViewById(R.id.settings_admin_name);
+            editDialog.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    View vobj = LayoutInflater.from(getContext()).inflate(R.layout.layout_edit_details, null);
+                    builder.setView(vobj);
+                    AlertDialog alertDialog = builder.create();
+                    alertDialog.setCanceledOnTouchOutside(false);
+                    EditText dialogName = vobj.findViewById(R.id.dialog_edit_details_store_name);
+                    EditText dialogEmail = vobj.findViewById(R.id.dialog_edit_details_email);
+                    EditText dialogAddress = vobj.findViewById(R.id.dialog_edit_details_store_address);
+                    EditText dialogAbout = vobj.findViewById(R.id.dialog_edit_details_about);
+                    TextView dialogCancel = vobj.findViewById(R.id.dialog_edit_details_cancel_btn);
+                    TextView dialogSave = vobj.findViewById(R.id.dialog_edit_details_save_btn);
+                    dialogSave.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            progressDialog.show();
+                            HashMap<String, String> hashMap = new HashMap<>();
+                            hashMap.put("about", dialogAbout.getText().toString());
+                            hashMap.put("storeAddress", dialogAddress.getText().toString());
+                            hashMap.put("storeName", dialogName.getText().toString());
+                            hashMap.put("storeEmail", dialogEmail.getText().toString());
+                            FirebaseDatabase.getInstance().getReference("storeInfo")
+                                    .setValue(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    progressDialog.cancel();
+                                    alertDialog.cancel();
+                                    contactStoreName.setText(hashMap.get("storeName"));
+                                    contactEmail.setText(hashMap.get("storeEmail"));
+                                    contactAddress.setText(hashMap.get("storeAddress"));
+                                    contactAbout.setText(hashMap.get("about"));
+                                    Toast.makeText(getContext(), "Saved Successfully", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    });
+                    dialogCancel.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            alertDialog.cancel();
+                        }
+                    });
 
-                alertDialog.show();
-            }
-        });
-        getDataSettings();
+                    alertDialog.show();
+                }
+            });
+            getDataSettings();
+        } catch (Exception e) {
+            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+
         return view;
     }
 
