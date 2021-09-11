@@ -9,4 +9,5 @@
     <color name="apptheme">#53B175</color>
 
     <color name="white">#FFFFFFFF</color>
+    <color name="gray_eee">#eee</color>
 </resources>

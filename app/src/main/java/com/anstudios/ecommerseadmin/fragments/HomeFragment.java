@@ -3,6 +3,7 @@ package com.anstudios.ecommerseadmin.fragments;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.anstudios.ecommerseadmin.OrdersObject;
 import com.anstudios.ecommerseadmin.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -44,8 +46,8 @@ public class HomeFragment extends Fragment {
             executor.execute(() -> {
                 // do background work here
                 try {
+                    getStoreAbout();
                     fetchNumberOfUsers();
-//                    fetchSalesAndRevenue();
                     fetchNoOfProducts();
                     fetchSalesAndRevenue();
                 } catch (Exception e) {
@@ -60,8 +62,25 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
+
+    private void getStoreAbout(){
+        FirebaseDatabase
+                .getInstance().getReference("storeInfo").child("about")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        String aboutStr= (String) snapshot.getValue();
+                        about.setText(aboutStr);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+    }
     private void fetchSalesAndRevenue() {
-        FirebaseDatabase.getInstance().getReference("products").addListenerForSingleValueEvent(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference("orders").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 int totalOrdersInt = 0, totalEarningInt = 0;
@@ -69,8 +88,8 @@ public class HomeFragment extends Fragment {
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                         totalOrdersInt += (int) dataSnapshot.getChildrenCount();
                         for (DataSnapshot objectOrders : dataSnapshot.getChildren()) {
-                            Toast.makeText(getContext(), String.valueOf(objectOrders), Toast.LENGTH_SHORT).show();
-//                            totalEarningInt += Integer.parseInt(objectOrders.getValue(OrdersObject.class).getTotalPrice());
+                            HashMap<String,String> hashMap= (HashMap<String, String>) objectOrders.getValue();
+                            totalEarningInt += Integer.parseInt(hashMap.get("totalPrice"));
                         }
                         totalEarnings.setText(String.valueOf(totalEarningInt));
                     }

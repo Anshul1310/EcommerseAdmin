@@ -5,4 +5,9 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="meats_fish"><![CDATA[Meats & Fish]]></string>
+    <string name="on_the_way">On The Way</string>
+    <string name="delivered">Delivered</string>
+    <string name="all">All</string>
+    <string name="dispatched">Dispatched</string>
+    <string name="preparing">Preparing</string>
 </resources>
