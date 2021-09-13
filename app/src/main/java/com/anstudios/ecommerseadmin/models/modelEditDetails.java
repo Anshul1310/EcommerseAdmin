@@ -3,6 +3,14 @@ package com.anstudios.ecommerseadmin.models;
 public class modelEditDetails {
     private String image, title, measuringUnit, quantity, price;
 
+    public modelEditDetails(String image, String title, String measuringUnit, String quantity, String price) {
+        this.image = image;
+        this.title = title;
+        this.measuringUnit = measuringUnit;
+        this.quantity = quantity;
+        this.price = price;
+    }
+
     public String getImage() {
         return image;
     }

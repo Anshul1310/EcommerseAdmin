@@ -1,17 +1,15 @@
 package com.anstudios.ecommerseadmin;
 
-import android.widget.Toast;
+import android.app.Service;
 
 import androidx.annotation.NonNull;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
-public class MyFirebaseMessagingService extends FirebaseMessagingService {
-
+public class MyFirebaseInstanceIDService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
-        SplashScreen.sharedPreferences.edit().putString("anhul","ash").apply();
         super.onMessageReceived(remoteMessage);
     }
 }

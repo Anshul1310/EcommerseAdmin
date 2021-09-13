@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,15 +30,20 @@ public class adapterEditDetails extends RecyclerView.Adapter<adapterEditDetails.
     @NonNull
     @Override
     public viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new viewHolder(LayoutInflater.from(context).inflate(R.layout.layout_edit_details,parent,false));
+        return new viewHolder(LayoutInflater.from(context).inflate(R.layout.layout_details_products, parent, false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
-        holder.title.setText(arrayList.get(position).getTitle());
-        holder.measuringUnit.setText(arrayList.get(position).getMeasuringUnit());
-        holder.price.setText(arrayList.get(position).getPrice());
-        Picasso.get().load(arrayList.get(position).getImage()).into(holder.image);
+        try {
+            holder.title.setText(arrayList.get(position).getTitle());
+            holder.measuringUnit.setText(arrayList.get(position).getMeasuringUnit().replace("1", arrayList.get(position).getQuantity()));
+            holder.price.setText(String.valueOf(Integer.parseInt(arrayList.get(position).getPrice()) * Integer.parseInt(arrayList.get(position).getQuantity())));
+            Picasso.get().load(arrayList.get(position).getImage()).into(holder.image);
+        } catch (Exception e) {
+            Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     @Override
@@ -50,12 +56,13 @@ public class adapterEditDetails extends RecyclerView.Adapter<adapterEditDetails.
         private final TextView title;
         private final TextView measuringUnit;
         private final TextView price;
+
         public viewHolder(@NonNull View itemView) {
             super(itemView);
-            image=itemView.findViewById(R.id.layout_editDetails_image);
-            title=itemView.findViewById(R.id.layout_editDetails_title);
-            measuringUnit=itemView.findViewById(R.id.layout_editDetails_measuringUnit);
-            price=itemView.findViewById(R.id.layout_editDetails_price);
+            image = itemView.findViewById(R.id.layout_editDetails_image);
+            title = itemView.findViewById(R.id.layout_editDetails_title);
+            measuringUnit = itemView.findViewById(R.id.layout_editDetails_measuringUnit);
+            price = itemView.findViewById(R.id.layout_editDetails_price);
         }
     }
 }

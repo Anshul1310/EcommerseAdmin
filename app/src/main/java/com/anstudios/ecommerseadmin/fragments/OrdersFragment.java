@@ -24,7 +24,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class OrdersFragment extends Fragment {
 
@@ -33,7 +32,9 @@ public class OrdersFragment extends Fragment {
     private ConstraintLayout dispatchedBtn, allBtn, onTheWayBtn, preparingBtn, deliveredBtn;
     private ArrayList<OrdersObject> arrayList;
     private adapterOrders adapter;
+    private ArrayList<String> customerUids;
     private ProgressBar progressBar;
+    private ArrayList<String> orderId;
     private LinearLayout linearLayout;
 
 
@@ -42,12 +43,14 @@ public class OrdersFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_orders, container, false);
-        progressBar=view.findViewById(R.id.progressBar2);
+        progressBar = view.findViewById(R.id.progressBar2);
         progressBar.setVisibility(View.VISIBLE);
         arrayList = new ArrayList<>();
-        linearLayout=view.findViewById(R.id.fragment_orders_status_layout);
+        orderId=new ArrayList<>();
+        customerUids = new ArrayList<>();
+        linearLayout = view.findViewById(R.id.fragment_orders_status_layout);
         recyclerView = view.findViewById(R.id.ordersRecycler);
-        adapter = new adapterOrders(getContext(), arrayList);
+        adapter = new adapterOrders(orderId,getContext(), arrayList, customerUids);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
         getMyOrders("all");
@@ -114,22 +117,26 @@ public class OrdersFragment extends Fragment {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         arrayList.clear();
+                        customerUids.clear();
                         for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                             for (DataSnapshot objectOrders : dataSnapshot.getChildren()) {
                                 OrdersObject ordersObject = objectOrders.getValue(OrdersObject.class);
                                 if (status.equals("all")) {
                                     arrayList.add(ordersObject);
+                                    orderId.add(objectOrders.getKey());
+                                    customerUids.add(dataSnapshot.getKey());
                                 } else {
                                     if (ordersObject.getStatus().equals(status)) {
                                         arrayList.add(ordersObject);
+                                        customerUids.add(dataSnapshot.getKey());
                                     }
                                 }
                             }
                         }
                         adapter.notifyDataSetChanged();
-                        if(arrayList.size()==0){
+                        if (arrayList.size() == 0) {
                             linearLayout.setVisibility(View.VISIBLE);
-                        }else{
+                        } else {
                             linearLayout.setVisibility(View.INVISIBLE);
                         }
                         recyclerView.setVisibility(View.VISIBLE);

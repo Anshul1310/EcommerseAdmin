@@ -59,29 +59,30 @@ public class LoginActivity extends AppCompatActivity {
                     .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                         @Override
                         public void onSuccess(AuthResult authResult) {
-                            FirebaseDatabase.getInstance().getReference("admins").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                    .addListenerForSingleValueEvent(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                            if (snapshot.getValue() != null) {
-                                                HashMap<String, String> hashMap = (HashMap<String, String>) snapshot.getValue();
-                                                SplashScreen.sharedPreferences.edit().putString("name", hashMap.get("name")).apply();
-                                                SplashScreen.sharedPreferences.edit().putString("email", hashMap.get("email")).apply();
-                                                if (hashMap.get("profile") != null) {
-                                                    SplashScreen.sharedPreferences.edit().putString("profile", hashMap.get("profile")).apply();
-                                                }
-                                                progressDialog.cancel();
-                                                Toast.makeText(LoginActivity.this, "Login Successfully", Toast.LENGTH_SHORT).show();
-                                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                                            }
-                                        }
+//                            FirebaseDatabase.getInstance().getReference("admins").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+//                                    .addListenerForSingleValueEvent(new ValueEventListener() {
+//                                        @Override
+//                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                                            if (snapshot.getValue() != null) {
+//                                                HashMap<String, String> hashMap = (HashMap<String, String>) snapshot.getValue();
+//                                                SplashScreen.sharedPreferences.edit().putString("name", hashMap.get("name")).apply();
+//                                                SplashScreen.sharedPreferences.edit().putString("email", hashMap.get("email")).apply();
+//                                                if (hashMap.get("profile") != null) {
+//                                                    SplashScreen.sharedPreferences.edit().putString("profile", hashMap.get("profile")).apply();
+//                                                }
+//                                                progressDialog.cancel();
+//                                                Toast.makeText(LoginActivity.this, "Login Successfully", Toast.LENGTH_SHORT).show();
+//                                            }
+//                                        }
+//
+//                                        @Override
+//                                        public void onCancelled(@NonNull DatabaseError error) {
+//                                            progressDialog.cancel();
+//                                            Toast.makeText(LoginActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+//                                        }
+//                                    });
+                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
 
-                                        @Override
-                                        public void onCancelled(@NonNull DatabaseError error) {
-                                            progressDialog.cancel();
-                                            Toast.makeText(LoginActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                 @Override
