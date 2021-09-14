@@ -1,11 +1,13 @@
 package com.anstudios.ecommerseadmin;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,15 +42,18 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 public class OrderDetails extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private ArrayList<modelEditDetails> arrayList;
     private adapterEditDetails adapter;
-    private TextView order_deatilsTxt, orderId, price, date, paymentMode;
+    private ProgressBar progressBar;
+    private TextView order_deatilsTxt, addressCustomer, phoneNumber, orderId, price, date, paymentMode;
     private OrdersObject ordersObject;
     private EditText customerMessage;
+    private TextView orderedProductsTxt;
     private TextView statusOfOrder;
     private ConstraintLayout orderDetails;
     private ConstraintLayout orderDetailsBtn, orderProductsBtn;
@@ -61,10 +66,14 @@ public class OrderDetails extends AppCompatActivity {
         try {
             recyclerView = findViewById(R.id.order_details_recycler);
             orderDetailsBtn = findViewById(R.id.orderDetailsBtn);
+            progressBar = findViewById(R.id.oredr_details_progress_bar);
             paymentMode = findViewById(R.id.order_details_paymentMode);
             orderId = findViewById(R.id.order_details_orderId);
             customerMessage = findViewById(R.id.customer_mesage);
+            orderedProductsTxt = findViewById(R.id.order_products_txt);
             orderDetails = findViewById(R.id.order_details_layout);
+            addressCustomer = findViewById(R.id.order_details_address);
+            phoneNumber = findViewById(R.id.mobile_order_details);
             price = findViewById(R.id.order_details_price);
             statusOfOrder = findViewById(R.id.orderDetails_status);
             date = findViewById(R.id.order_details_date);
@@ -83,6 +92,7 @@ public class OrderDetails extends AppCompatActivity {
             orderProductsBtn.setOnClickListener(v -> {
                 recyclerView.setVisibility(View.VISIBLE);
                 orderDetails.setVisibility(View.INVISIBLE);
+                orderedProductsTxt.setTextColor(ContextCompat.getColor(OrderDetails.this, R.color.white));
                 order_deatilsTxt.setTextColor(ContextCompat.getColor(OrderDetails.this, R.color.apptheme));
                 orderDetailsBtn.setBackgroundColor(ContextCompat.getColor(OrderDetails.this, R.color.white));
                 orderProductsBtn.setBackgroundColor(ContextCompat.getColor(OrderDetails.this, R.color.apptheme));
@@ -91,6 +101,7 @@ public class OrderDetails extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     recyclerView.setVisibility(View.INVISIBLE);
+                    orderedProductsTxt.setTextColor(ContextCompat.getColor(OrderDetails.this, R.color.apptheme));
                     orderDetails.setVisibility(View.VISIBLE);
                     order_deatilsTxt.setTextColor(ContextCompat.getColor(OrderDetails.this, R.color.white));
                     orderDetailsBtn.setBackgroundColor(ContextCompat.getColor(OrderDetails.this, R.color.apptheme));
@@ -112,7 +123,7 @@ public class OrderDetails extends AppCompatActivity {
         } catch (Exception e) {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
-
+        getAddress();
     }
 
     public void sendMessageToCustomer(View view) {
@@ -124,6 +135,7 @@ public class OrderDetails extends AppCompatActivity {
     }
 
     private void sendAndUploadNotification(String title, String body) {
+        progressBar.setVisibility(View.VISIBLE);
         HashMap<String, String> hashMap = new HashMap<>();
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy | HH:mm", Locale.getDefault());
         String currentDateandTime = sdf.format(new Date());
@@ -131,7 +143,7 @@ public class OrderDetails extends AppCompatActivity {
         hashMap.put("date", currentDateandTime);
         FirebaseDatabase.getInstance().getReference("notifications").child(getIntent().getStringExtra("customerUid"))
                 .push().setValue(hashMap).addOnSuccessListener(aVoid -> {
-
+            progressBar.setVisibility(View.INVISIBLE);
             try {
                 FirebaseDatabase.getInstance().getReference("users")
                         .child(getIntent().getStringExtra("customerUid"))
@@ -139,6 +151,7 @@ public class OrderDetails extends AppCompatActivity {
                         .addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                progressBar.setVisibility(View.VISIBLE);
                                 String fcmToke = (String) snapshot.getValue();
                                 JSONObject notificationObj = new JSONObject();
                                 RequestQueue mRequestQue = Volley.newRequestQueue(OrderDetails.this);
@@ -156,8 +169,8 @@ public class OrderDetails extends AppCompatActivity {
                                 String URL = "https://fcm.googleapis.com/fcm/send";
                                 JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, URL,
                                         json,
-                                        response -> Toast.makeText(OrderDetails.this, "Sent Successfully.", Toast.LENGTH_SHORT),
-                                        error -> Toast.makeText(OrderDetails.this, "OOPS! There was an Error.", Toast.LENGTH_SHORT).show()
+                                        response -> successMethod(),
+                                        error -> failMethod()
                                 ) {
                                     @Override
                                     public Map<String, String> getHeaders() {
@@ -188,6 +201,17 @@ public class OrderDetails extends AppCompatActivity {
         });
     }
 
+    private void successMethod() {
+        progressBar.setVisibility(View.INVISIBLE);
+        Toast.makeText(OrderDetails.this, "Sent Successfully.", Toast.LENGTH_SHORT);
+    }
+
+    private void failMethod() {
+        progressBar.setVisibility(View.INVISIBLE);
+        Toast.makeText(OrderDetails.this, "There was an error.", Toast.LENGTH_SHORT);
+    }
+
+
     String status;
 
 
@@ -213,10 +237,7 @@ public class OrderDetails extends AppCompatActivity {
             } else if (statusOfOrder.getText().toString().equals("onTheWay") || statusOfOrder.getText().toString().equals("preparing")) {
                 radOnThWay.setChecked(true);
             }
-//            radDelivered.setEnabled(false);
-//            radDispatch.setEnabled(false);
-//            radOnThWay.setEnabled(false);
-//            radPreparing.setEnabled(false);
+//
             radDelivered.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -224,7 +245,6 @@ public class OrderDetails extends AppCompatActivity {
                         radDispatch.setChecked(false);
                         radPreparing.setChecked(false);
                         radDelivered.setChecked(true);
-                        status = "delivered";
                         radOnThWay.setChecked(false);
                     }
 
@@ -237,7 +257,6 @@ public class OrderDetails extends AppCompatActivity {
                         radDispatch.setChecked(true);
                         radPreparing.setChecked(false);
                         radDelivered.setChecked(false);
-                        status = "dispatched";
                         radOnThWay.setChecked(false);
                     }
 
@@ -251,7 +270,6 @@ public class OrderDetails extends AppCompatActivity {
                         radDelivered.setChecked(false);
                         radPreparing.setChecked(false);
                         radOnThWay.setChecked(true);
-                        status = "onTheWay";
                     }
 
                 }
@@ -264,7 +282,6 @@ public class OrderDetails extends AppCompatActivity {
                         radDelivered.setChecked(false);
                         radPreparing.setChecked(true);
                         radOnThWay.setChecked(false);
-                        status = "preparing";
                     }
                 }
             });
@@ -273,6 +290,15 @@ public class OrderDetails extends AppCompatActivity {
             savebtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if (radDelivered.isChecked() || radDelivered.isSelected()) {
+                        status = "delivered";
+                    } else if (radDispatch.isChecked() || radDispatch.isSelected()) {
+                        status = "dispatched";
+                    } else if (radOnThWay.isChecked() || radOnThWay.isSelected()) {
+                        status = "onTheWay";
+                    } else {
+                        status = "preparing";
+                    }
                     FirebaseDatabase.getInstance().getReference("orders")
                             .child(getIntent().getStringExtra("customerUid"))
                             .child(getIntent().getStringExtra("orderId"))
@@ -280,7 +306,7 @@ public class OrderDetails extends AppCompatActivity {
                         @Override
                         public void onSuccess(Void aVoid) {
                             alertDialog.cancel();
-                            sendAndUploadNotification("Order Updates", "Your products of " + orderId.getText().toString() +" is " +statusOfOrder.getText().toString());
+                            sendAndUploadNotification("Order Updates", "Your products of " + orderId.getText().toString() + " is " + statusOfOrder.getText().toString());
                             Toast.makeText(OrderDetails.this, "Changed Successfully", Toast.LENGTH_SHORT).show();
                         }
                     });
@@ -293,6 +319,29 @@ public class OrderDetails extends AppCompatActivity {
 
     }
 
+
+    private void getAddress() {
+        FirebaseDatabase.getInstance().getReference("users").child(getIntent().getStringExtra("customerUid"))
+                .child("deliveryAddress").child(ordersObject.getAddressId()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    HashMap<String, String> hashMap = (HashMap<String, String>) snapshot.getValue();
+                    String temp = hashMap.get("addressLine1").concat(", " + Objects.requireNonNull(hashMap.get("addressLine2")))
+                            .concat(", " + hashMap.get("city")).concat(", " + Objects.requireNonNull(hashMap.get("pincode")));
+                    addressCustomer.setText(temp);
+                    phoneNumber.setText(hashMap.get("phoneNumber"));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
     public void closeOrderDetailsScreen(View view) {
+        startActivity(new Intent(OrderDetails.this, MainActivity.class));
     }
 }

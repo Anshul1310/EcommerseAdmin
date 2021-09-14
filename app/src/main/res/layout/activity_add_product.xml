@@ -176,7 +176,6 @@
                         android:layout_gravity="start|center_vertical"
                         android:layout_marginLeft="10dp"
                         android:fontFamily="@font/product_sans_medium"
-                        android:text="Kilogram"
                         android:textColor="#000" />
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>

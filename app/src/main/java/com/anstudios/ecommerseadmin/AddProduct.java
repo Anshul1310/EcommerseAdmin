@@ -87,7 +87,7 @@ public class AddProduct extends AppCompatActivity implements AdapterView.OnItemS
             categoryItem = getIntent().getStringExtra("category");
             smallurl = getIntent().getStringExtra("smallImage");
             Picasso.get().load(getIntent().getStringExtra("smallImage")).into(smallImage);
-            unit.setText(getIntent().getStringExtra("measuringUnit"));
+            Toast.makeText(this, getIntent().getStringExtra("measuringUnit"), Toast.LENGTH_SHORT).show();
             price.setText(getIntent().getStringExtra("price"));
             deleteBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
