@@ -61,14 +61,14 @@
                     app:strokeWidth="1dp">
 
                     <EditText
-                        android:fontFamily="@font/product_sans_medium"
                         android:id="@+id/add_product_title"
                         android:layout_width="match_parent"
-                        android:paddingStart="15dp"
-                        android:textSize="16sp"
                         android:layout_height="match_parent"
                         android:background="@null"
-                        android:minHeight="50dp" />
+                        android:fontFamily="@font/product_sans_medium"
+                        android:minHeight="50dp"
+                        android:paddingStart="15dp"
+                        android:textSize="16sp" />
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
 
@@ -96,12 +96,13 @@
                     app:strokeWidth="1dp">
 
                     <EditText
-                        android:paddingStart="15dp"
-                        android:textSize="16sp"
                         android:id="@+id/add_product_description"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@null" />
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:minHeight="65dp"
+                        android:paddingStart="15dp"
+                        android:textSize="16sp" />
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
 
@@ -129,12 +130,12 @@
                     app:strokeWidth="1dp">
 
                     <EditText
-                        android:paddingStart="15dp"
-                        android:textSize="16sp"
                         android:id="@+id/add_product_price"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@null" />
+                        android:background="@null"
+                        android:paddingStart="15dp"
+                        android:textSize="16sp" />
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
 

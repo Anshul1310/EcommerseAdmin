@@ -2,14 +2,12 @@ package com.anstudios.ecommerseadmin;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Toast;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -18,16 +16,11 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.anstudios.ecommerseadmin.fragments.HomeFragment;
-import com.anstudios.ecommerseadmin.fragments.NotificationFragment;
 import com.anstudios.ecommerseadmin.fragments.OrdersFragment;
 import com.anstudios.ecommerseadmin.fragments.PincodeFragment;
 import com.anstudios.ecommerseadmin.fragments.ProductsFragment;
 import com.anstudios.ecommerseadmin.fragments.SettingFragment;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.messaging.FirebaseMessaging;
 
@@ -49,57 +42,58 @@ public class MainActivity extends AppCompatActivity {
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+        TextView navName=findViewById(R.id.nav_bar_name);
+        TextView navEmail=findViewById(R.id.nav_bar_email);
+        navName.setText(SplashScreen.sharedPreferences.getString("name","John Doe"));
+        navEmail.setText(SplashScreen.sharedPreferences.getString("email","johnDoe@gmail.com"));
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav_main);
         getSupportFragmentManager()
                 .beginTransaction()
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .replace(R.id.frame_layout, new PincodeFragment())
                 .commit();
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.bottom_nav_pincode:
-                        getSupportFragmentManager()
-                                .beginTransaction()
-                                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                                .replace(R.id.frame_layout, new PincodeFragment())
-                                .commit();
-                        break;
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.bottom_nav_pincode:
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                            .replace(R.id.frame_layout, new PincodeFragment())
+                            .commit();
+                    break;
 
-                    case R.id.bottom_nav_products:
-                        getSupportFragmentManager()
-                                .beginTransaction()
-                                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                                .replace(R.id.frame_layout, new ProductsFragment())
-                                .commit();
-                        break;
+                case R.id.bottom_nav_products:
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                            .replace(R.id.frame_layout, new ProductsFragment())
+                            .commit();
+                    break;
 
-                    case R.id.bottom_nav_orders:
-                        getSupportFragmentManager()
-                                .beginTransaction()
-                                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                                .replace(R.id.frame_layout, new OrdersFragment())
-                                .commit();
-                        break;
-                    case R.id.bottom_nav_settings:
-                        getSupportFragmentManager()
-                                .beginTransaction()
-                                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                                .replace(R.id.frame_layout, new SettingFragment())
-                                .commit();
-                        break;
-                    case R.id.bottom_nav_home:
-                        getSupportFragmentManager()
-                                .beginTransaction()
-                                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                                .replace(R.id.frame_layout, new HomeFragment())
-                                .commit();
-                        break;
+                case R.id.bottom_nav_orders:
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                            .replace(R.id.frame_layout, new OrdersFragment())
+                            .commit();
+                    break;
+                case R.id.bottom_nav_settings:
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                            .replace(R.id.frame_layout, new SettingFragment())
+                            .commit();
+                    break;
+                case R.id.bottom_nav_home:
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                            .replace(R.id.frame_layout, new HomeFragment())
+                            .commit();
+                    break;
 
-                }
-                return true;
             }
+            return true;
         });
         addNavListener();
     }
@@ -141,49 +135,28 @@ public class MainActivity extends AppCompatActivity {
                         .commit();
             }
         });
-        findViewById(R.id.nav_bar_orders_btn).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                drawerLayout.closeDrawer(GravityCompat.START);
+        findViewById(R.id.nav_bar_orders_btn).setOnClickListener(v -> {
+            drawerLayout.closeDrawer(GravityCompat.START);
 
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                        .replace(R.id.frame_layout, new OrdersFragment())
-                        .commit();
-            }
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                    .replace(R.id.frame_layout, new OrdersFragment())
+                    .commit();
         });
-        findViewById(R.id.nav_bar_notification_btn).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                drawerLayout.closeDrawer(GravityCompat.START);
+        findViewById(R.id.nav_bar_settings).setOnClickListener(v -> {
+            drawerLayout.closeDrawer(GravityCompat.START);
 
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                        .replace(R.id.frame_layout, new NotificationFragment())
-                        .commit();
-            }
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                    .replace(R.id.frame_layout, new SettingFragment())
+                    .commit();
         });
-        findViewById(R.id.nav_bar_settings).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                drawerLayout.closeDrawer(GravityCompat.START);
-
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                        .replace(R.id.frame_layout, new SettingFragment())
-                        .commit();
-            }
-        });
-        findViewById(R.id.nav_bar_logout_btn).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-                drawerLayout.closeDrawer(GravityCompat.START);
-                startActivity(new Intent(MainActivity.this, LoginActivity.class));
-            }
+        findViewById(R.id.nav_bar_logout_btn).setOnClickListener(v -> {
+            FirebaseAuth.getInstance().signOut();
+            drawerLayout.closeDrawer(GravityCompat.START);
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
         });
     }
 

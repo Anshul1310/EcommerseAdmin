@@ -7,7 +7,7 @@ public class modelProducts {
     public modelProducts(String category, String smallImage, String bigImage, String name, String description, String price, String measuringUnit, String productId) {
         this.smallImage = smallImage;
         this.bigImage = bigImage;
-        this.category=category;
+        this.category = category;
         this.name = name;
         this.description = description;
         this.price = price;

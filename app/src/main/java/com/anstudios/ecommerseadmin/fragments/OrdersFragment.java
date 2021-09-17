@@ -46,11 +46,11 @@ public class OrdersFragment extends Fragment {
         progressBar = view.findViewById(R.id.progressBar2);
         progressBar.setVisibility(View.VISIBLE);
         arrayList = new ArrayList<>();
-        orderId=new ArrayList<>();
+        orderId = new ArrayList<>();
         customerUids = new ArrayList<>();
         linearLayout = view.findViewById(R.id.fragment_orders_status_layout);
         recyclerView = view.findViewById(R.id.ordersRecycler);
-        adapter = new adapterOrders(orderId,getContext(), arrayList, customerUids);
+        adapter = new adapterOrders(orderId, getContext(), arrayList, customerUids);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
         getMyOrders("all");
@@ -94,16 +94,13 @@ public class OrdersFragment extends Fragment {
             deliveredBtn.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.gray_eee));
             onTheWayBtn.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.gray_eee));
         });
-        preparingBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getMyOrders("preparing");
-                preparingBtn.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.apptheme));
-                allBtn.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.gray_eee));
-                dispatchedBtn.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.gray_eee));
-                deliveredBtn.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.gray_eee));
-                onTheWayBtn.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.gray_eee));
-            }
+        preparingBtn.setOnClickListener(v -> {
+            getMyOrders("preparing");
+            preparingBtn.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.apptheme));
+            allBtn.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.gray_eee));
+            dispatchedBtn.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.gray_eee));
+            deliveredBtn.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.gray_eee));
+            onTheWayBtn.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.gray_eee));
         });
         return view;
     }

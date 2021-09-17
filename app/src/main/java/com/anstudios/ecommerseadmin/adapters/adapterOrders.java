@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.anstudios.ecommerseadmin.Constants;
 import com.anstudios.ecommerseadmin.OrderDetails;
 import com.anstudios.ecommerseadmin.OrdersObject;
 import com.anstudios.ecommerseadmin.R;
@@ -20,15 +21,15 @@ import java.util.ArrayList;
 
 public class adapterOrders extends RecyclerView.Adapter<adapterOrders.viewHolder> {
 
-    private Context context;
-    private ArrayList<OrdersObject> arrayList;
-    private ArrayList<String> orderId;
-    private ArrayList<String> customerUid;
+    private final Context context;
+    private final ArrayList<OrdersObject> arrayList;
+    private final ArrayList<String> orderId;
+    private final ArrayList<String> customerUid;
 
-    public adapterOrders(ArrayList<String> orderId,Context context, ArrayList<OrdersObject> arrayList, ArrayList<String> customerUid) {
+    public adapterOrders(ArrayList<String> orderId, Context context, ArrayList<OrdersObject> arrayList, ArrayList<String> customerUid) {
         this.context = context;
-        this.customerUid=customerUid;
-        this.orderId=orderId;
+        this.customerUid = customerUid;
+        this.orderId = orderId;
         this.arrayList = arrayList;
     }
 
@@ -43,23 +44,21 @@ public class adapterOrders extends RecyclerView.Adapter<adapterOrders.viewHolder
         try {
             String statusStr = arrayList.get(position).getStatus().replaceFirst(arrayList.get(position).getStatus().charAt(0) + "", (arrayList.get(position).getStatus().charAt(0) + "").toUpperCase());
             holder.status.setText(statusStr);
-            holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(context, OrderDetails.class);
-                    intent.putExtra("OrdersObject", arrayList.get(position));
-                    intent.putExtra("customerUid",customerUid.get(position));
-                    intent.putExtra("orderId",orderId.get(position));
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    context.startActivity(intent);
-                }
+            holder.constraintLayout.setOnClickListener(v -> {
+                Intent intent = new Intent(context, OrderDetails.class);
+                intent.putExtra("OrdersObject", arrayList.get(position));
+                intent.putExtra("customerUid", customerUid.get(position));
+                intent.putExtra("orderId", orderId.get(position));
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
             });
             if (arrayList.get(position).getPaymentType().equals("cash")) {
-                holder.paymentType.setText("Pay on Delivery");
+                holder.paymentType.setText(context.getString(R.string.PAYONDELIEVRY));
             } else {
-                holder.paymentType.setText("Paid Online");
+                holder.paymentType.setText(context.getString(R.string.PAIDONLINE));
             }
-            holder.price.setText(arrayList.get(position).getTotalPrice());
+            Toast.makeText(context, arrayList.get(position).getPaymentType(), Toast.LENGTH_SHORT).show();
+            holder.price.setText(Constants.CURRENCY_SIGN.concat(arrayList.get(position).getTotalPrice()));
             holder.date.setText(arrayList.get(position).getTimeStamp());
             holder.orderId.setText("Order Id : #" + arrayList.get(position).getIndex());
         } catch (Exception e) {
@@ -73,13 +72,13 @@ public class adapterOrders extends RecyclerView.Adapter<adapterOrders.viewHolder
         return arrayList.size();
     }
 
-    public class viewHolder extends RecyclerView.ViewHolder {
-        private TextView orderId;
-        private TextView date;
-        private TextView price;
-        private TextView status;
-        private TextView paymentType;
-        private ConstraintLayout constraintLayout;
+    public static class viewHolder extends RecyclerView.ViewHolder {
+        private final TextView orderId;
+        private final TextView date;
+        private final TextView price;
+        private final TextView status;
+        private final TextView paymentType;
+        private final ConstraintLayout constraintLayout;
 
         public viewHolder(@NonNull View itemView) {
             super(itemView);

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
@@ -26,8 +25,6 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.anstudios.ecommerseadmin.adapters.adapterEditDetails;
 import com.anstudios.ecommerseadmin.models.modelEditDetails;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -46,11 +43,13 @@ import java.util.Objects;
 
 public class OrderDetails extends AppCompatActivity {
 
+    String status;
     private RecyclerView recyclerView;
-    private ArrayList<modelEditDetails> arrayList;
-    private adapterEditDetails adapter;
     private ProgressBar progressBar;
-    private TextView order_deatilsTxt, addressCustomer, phoneNumber, orderId, price, date, paymentMode;
+    private TextView order_deatilsTxt;
+    private TextView addressCustomer;
+    private TextView phoneNumber;
+    private TextView orderId;
     private OrdersObject ordersObject;
     private EditText customerMessage;
     private TextView orderedProductsTxt;
@@ -67,16 +66,16 @@ public class OrderDetails extends AppCompatActivity {
             recyclerView = findViewById(R.id.order_details_recycler);
             orderDetailsBtn = findViewById(R.id.orderDetailsBtn);
             progressBar = findViewById(R.id.oredr_details_progress_bar);
-            paymentMode = findViewById(R.id.order_details_paymentMode);
+            TextView paymentMode = findViewById(R.id.order_details_paymentMode);
             orderId = findViewById(R.id.order_details_orderId);
             customerMessage = findViewById(R.id.customer_mesage);
             orderedProductsTxt = findViewById(R.id.order_products_txt);
             orderDetails = findViewById(R.id.order_details_layout);
             addressCustomer = findViewById(R.id.order_details_address);
             phoneNumber = findViewById(R.id.mobile_order_details);
-            price = findViewById(R.id.order_details_price);
+            TextView price = findViewById(R.id.order_details_price);
             statusOfOrder = findViewById(R.id.orderDetails_status);
-            date = findViewById(R.id.order_details_date);
+            TextView date = findViewById(R.id.order_details_date);
             order_deatilsTxt = findViewById(R.id.orderedDetailsTxt);
             ordersObject = (OrdersObject) getIntent().getSerializableExtra("OrdersObject");
             statusOfOrder.setText(ordersObject.getStatus());
@@ -85,8 +84,8 @@ public class OrderDetails extends AppCompatActivity {
             paymentMode.setText(ordersObject.getPaymentType());
             orderId.setText("Order Id: " + ordersObject.getIndex());
             orderProductsBtn = findViewById(R.id.order_produts_btn);
-            arrayList = new ArrayList<>();
-            adapter = new adapterEditDetails(this, arrayList);
+            ArrayList<modelEditDetails> arrayList = new ArrayList<>();
+            adapterEditDetails adapter = new adapterEditDetails(this, arrayList);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
             recyclerView.setAdapter(adapter);
             orderProductsBtn.setOnClickListener(v -> {
@@ -97,16 +96,13 @@ public class OrderDetails extends AppCompatActivity {
                 orderDetailsBtn.setBackgroundColor(ContextCompat.getColor(OrderDetails.this, R.color.white));
                 orderProductsBtn.setBackgroundColor(ContextCompat.getColor(OrderDetails.this, R.color.apptheme));
             });
-            orderDetailsBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    recyclerView.setVisibility(View.INVISIBLE);
-                    orderedProductsTxt.setTextColor(ContextCompat.getColor(OrderDetails.this, R.color.apptheme));
-                    orderDetails.setVisibility(View.VISIBLE);
-                    order_deatilsTxt.setTextColor(ContextCompat.getColor(OrderDetails.this, R.color.white));
-                    orderDetailsBtn.setBackgroundColor(ContextCompat.getColor(OrderDetails.this, R.color.apptheme));
-                    orderProductsBtn.setBackgroundColor(ContextCompat.getColor(OrderDetails.this, R.color.white));
-                }
+            orderDetailsBtn.setOnClickListener(v -> {
+                recyclerView.setVisibility(View.INVISIBLE);
+                orderedProductsTxt.setTextColor(ContextCompat.getColor(OrderDetails.this, R.color.apptheme));
+                orderDetails.setVisibility(View.VISIBLE);
+                order_deatilsTxt.setTextColor(ContextCompat.getColor(OrderDetails.this, R.color.white));
+                orderDetailsBtn.setBackgroundColor(ContextCompat.getColor(OrderDetails.this, R.color.apptheme));
+                orderProductsBtn.setBackgroundColor(ContextCompat.getColor(OrderDetails.this, R.color.white));
             });
             HashMap<String, HashMap<String, String>> hashMap = ordersObject.getProducts();
             try {
@@ -128,18 +124,18 @@ public class OrderDetails extends AppCompatActivity {
 
     public void sendMessageToCustomer(View view) {
         if (!customerMessage.getText().toString().equals("")) {
-            sendAndUploadNotification("Order Updates", customerMessage.getText().toString());
+            sendAndUploadNotification(customerMessage.getText().toString());
         } else {
             Toast.makeText(this, "The Message is blank", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void sendAndUploadNotification(String title, String body) {
+    private void sendAndUploadNotification(String body) {
         progressBar.setVisibility(View.VISIBLE);
         HashMap<String, String> hashMap = new HashMap<>();
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy | HH:mm", Locale.getDefault());
         String currentDateandTime = sdf.format(new Date());
-        hashMap.put("title", customerMessage.getText().toString());
+        hashMap.put("title", body);
         hashMap.put("date", currentDateandTime);
         FirebaseDatabase.getInstance().getReference("notifications").child(getIntent().getStringExtra("customerUid"))
                 .push().setValue(hashMap).addOnSuccessListener(aVoid -> {
@@ -158,7 +154,7 @@ public class OrderDetails extends AppCompatActivity {
                                 JSONObject json = new JSONObject();
                                 try {
                                     json.put("to", fcmToke);
-                                    notificationObj.put("title", title);
+                                    notificationObj.put("title", "Order Updates");
                                     notificationObj.put("body", body);
                                     //replace notification with data when went send data
                                     json.put("notification", notificationObj);
@@ -193,27 +189,18 @@ public class OrderDetails extends AppCompatActivity {
             } catch (Exception e) {
                 Toast.makeText(OrderDetails.this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(OrderDetails.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+        }).addOnFailureListener(e -> Toast.makeText(OrderDetails.this, e.getMessage(), Toast.LENGTH_SHORT).show());
     }
 
     private void successMethod() {
         progressBar.setVisibility(View.INVISIBLE);
-        Toast.makeText(OrderDetails.this, "Sent Successfully.", Toast.LENGTH_SHORT);
+        Toast.makeText(OrderDetails.this, "Sent Successfully.", Toast.LENGTH_SHORT).show();
     }
 
     private void failMethod() {
         progressBar.setVisibility(View.INVISIBLE);
-        Toast.makeText(OrderDetails.this, "There was an error.", Toast.LENGTH_SHORT);
+        Toast.makeText(OrderDetails.this, "There swas an error.", Toast.LENGTH_SHORT).show();
     }
-
-
-    String status;
-
 
     public void editOrderStatusBtn(View view) {
         try {
@@ -238,79 +225,62 @@ public class OrderDetails extends AppCompatActivity {
                 radOnThWay.setChecked(true);
             }
 //
-            radDelivered.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (isChecked) {
-                        radDispatch.setChecked(false);
-                        radPreparing.setChecked(false);
-                        radDelivered.setChecked(true);
-                        radOnThWay.setChecked(false);
-                    }
-
+            radDelivered.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                if (isChecked) {
+                    radDispatch.setChecked(false);
+                    radPreparing.setChecked(false);
+                    radDelivered.setChecked(true);
+                    status = "delivered";
+                    radOnThWay.setChecked(false);
                 }
-            });
-            radDispatch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (isChecked) {
-                        radDispatch.setChecked(true);
-                        radPreparing.setChecked(false);
-                        radDelivered.setChecked(false);
-                        radOnThWay.setChecked(false);
-                    }
 
-                }
             });
-            radOnThWay.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (isChecked) {
-                        radDispatch.setChecked(false);
-                        radDelivered.setChecked(false);
-                        radPreparing.setChecked(false);
-                        radOnThWay.setChecked(true);
-                    }
+            radDispatch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                if (isChecked) {
+                    radDispatch.setChecked(true);
+                    radPreparing.setChecked(false);
+                    status = "dispatched";
+                    radDelivered.setChecked(false);
+                    radOnThWay.setChecked(false);
+                }
 
-                }
             });
-            radPreparing.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (isChecked) {
-                        radDispatch.setChecked(false);
-                        radDelivered.setChecked(false);
-                        radPreparing.setChecked(true);
-                        radOnThWay.setChecked(false);
-                    }
+            radOnThWay.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                if (isChecked) {
+                    radDispatch.setChecked(false);
+                    radDelivered.setChecked(false);
+                    radPreparing.setChecked(false);
+                    radOnThWay.setChecked(true);
+                    status = "onTheWay";
+                }
+
+            });
+            radPreparing.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                if (isChecked) {
+                    radDispatch.setChecked(false);
+                    radDelivered.setChecked(false);
+                    status = "preparing";
+                    radPreparing.setChecked(true);
+                    radOnThWay.setChecked(false);
                 }
             });
 
             CardView savebtn = vobj.findViewById(R.id.saveChanges_orderStatus_btn);
-            savebtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (radDelivered.isChecked() || radDelivered.isSelected()) {
-                        status = "delivered";
-                    } else if (radDispatch.isChecked() || radDispatch.isSelected()) {
-                        status = "dispatched";
-                    } else if (radOnThWay.isChecked() || radOnThWay.isSelected()) {
-                        status = "onTheWay";
-                    } else {
-                        status = "preparing";
-                    }
+            savebtn.setOnClickListener(v -> {
+                FirebaseDatabase.getInstance().getReference("orders")
+                        .child(getIntent().getStringExtra("customerUid"))
+                        .child(getIntent().getStringExtra("orderId"))
+                        .child("status").setValue(status).addOnSuccessListener(aVoid -> {
                     FirebaseDatabase.getInstance().getReference("orders")
                             .child(getIntent().getStringExtra("customerUid"))
-                            .child(getIntent().getStringExtra("orderId"))
-                            .child("status").setValue(status).addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            alertDialog.cancel();
-                            sendAndUploadNotification("Order Updates", "Your products of " + orderId.getText().toString() + " is " + statusOfOrder.getText().toString());
-                            Toast.makeText(OrderDetails.this, "Changed Successfully", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
+                            .child("orderId").child("status").setValue(status)
+                            .addOnSuccessListener(aVoid1 -> {
+                                alertDialog.cancel();
+                                sendAndUploadNotification("Your products of " + orderId.getText().toString() + " is " + status);
+                                Toast.makeText(OrderDetails.this, "Changed Successfully", Toast.LENGTH_SHORT).show();
+                            });
+
+                });
             });
 
         } catch (Exception e) {

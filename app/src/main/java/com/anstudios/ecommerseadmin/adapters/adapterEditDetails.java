@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.anstudios.ecommerseadmin.Constants;
 import com.anstudios.ecommerseadmin.R;
 import com.anstudios.ecommerseadmin.models.modelEditDetails;
 import com.squareup.picasso.Picasso;
@@ -38,7 +39,7 @@ public class adapterEditDetails extends RecyclerView.Adapter<adapterEditDetails.
         try {
             holder.title.setText(arrayList.get(position).getTitle());
             holder.measuringUnit.setText(arrayList.get(position).getMeasuringUnit().replace("1", arrayList.get(position).getQuantity()));
-            holder.price.setText(String.valueOf(Integer.parseInt(arrayList.get(position).getPrice()) * Integer.parseInt(arrayList.get(position).getQuantity())));
+            holder.price.setText(Constants.CURRENCY_SIGN.concat(String.valueOf(Integer.parseInt(arrayList.get(position).getPrice()) * Integer.parseInt(arrayList.get(position).getQuantity()))));
             Picasso.get().load(arrayList.get(position).getImage()).into(holder.image);
         } catch (Exception e) {
             Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -51,7 +52,7 @@ public class adapterEditDetails extends RecyclerView.Adapter<adapterEditDetails.
         return arrayList.size();
     }
 
-    public class viewHolder extends RecyclerView.ViewHolder {
+    public static class viewHolder extends RecyclerView.ViewHolder {
         private final ImageView image;
         private final TextView title;
         private final TextView measuringUnit;

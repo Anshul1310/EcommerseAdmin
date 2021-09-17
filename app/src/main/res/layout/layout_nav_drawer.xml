@@ -38,7 +38,7 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginStart="20dp"
                     android:elevation="0dp"
                     app:cardCornerRadius="100dp"
                     app:cardElevation="0dp">
@@ -56,7 +56,7 @@
                     android:id="@+id/nav_bar_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginStart="20dp"
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/gilroy_semibold"
                     android:text="John Doe"
@@ -67,7 +67,7 @@
                     android:id="@+id/nav_bar_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginStart="20dp"
                     android:layout_marginTop="2dp"
                     android:fontFamily="@font/inter"
                     android:text="huntinggamingtech@gmail.com"
@@ -108,7 +108,7 @@
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="10dp"
+                            android:layout_marginStart="10dp"
                             android:scaleType="centerCrop"
                             android:src="@drawable/vector_home_round" />
 
@@ -116,7 +116,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="20dp"
+                            android:layout_marginStart="20dp"
                             android:layout_weight="1"
                             android:fontFamily="@font/product_sans_medium"
                             android:text="My Home"
@@ -135,15 +135,15 @@
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="10dp"
+                            android:layout_marginStart="10dp"
                             android:scaleType="centerCrop"
                             android:src="@drawable/vector_round_orders" />
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="20dp"
+                            android:layout_marginStart="20dp"
                             android:layout_weight="1"
                             android:fontFamily="@font/product_sans_medium"
                             android:text="Products"
@@ -162,7 +162,7 @@
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="10dp"
+                            android:layout_marginStart="10dp"
                             android:scaleType="centerCrop"
                             android:src="@drawable/vector_location_round" />
 
@@ -170,10 +170,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="20dp"
+                            android:layout_marginStart="20dp"
                             android:layout_weight="1"
                             android:fontFamily="@font/product_sans_medium"
-                            android:text="Pincode"
+                            android:text="@string/pincode"
                             android:textColor="#000"
                             android:textSize="17sp" />
                     </LinearLayout>
@@ -189,7 +189,7 @@
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="10dp"
+                            android:layout_marginStart="10dp"
                             android:scaleType="centerCrop"
                             android:src="@drawable/vector_round_orders"
                             app:srcCompat="@drawable/vector_money" />
@@ -198,7 +198,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="20dp"
+                            android:layout_marginStart="20dp"
                             android:layout_weight="1"
                             android:fontFamily="@font/product_sans_medium"
                             android:text="Orders"
@@ -206,32 +206,6 @@
                             android:textSize="17sp" />
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:id="@+id/nav_bar_notification_btn"
-
-                        android:layout_width="match_parent"
-                        android:layout_height="60dp"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="10dp"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/vector_round_notifications" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="20dp"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/product_sans_medium"
-                            android:text="Notification"
-                            android:textColor="#000"
-                            android:textSize="17sp" />
-                    </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/nav_bar_settings"
@@ -243,7 +217,7 @@
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="10dp"
+                            android:layout_marginStart="10dp"
                             android:scaleType="centerCrop"
                             android:src="@drawable/vector_settings" />
 
@@ -251,7 +225,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="20dp"
+                            android:layout_marginStart="20dp"
                             android:layout_weight="1"
                             android:fontFamily="@font/product_sans_medium"
                             android:text="Settings"

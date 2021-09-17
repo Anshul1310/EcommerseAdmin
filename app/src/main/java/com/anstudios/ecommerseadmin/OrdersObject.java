@@ -7,16 +7,20 @@ public class OrdersObject implements Serializable {
     private String addressId, paymentType, status, totalPrice, timeStamp, index, phoneNumber;
     private HashMap<String, HashMap<String, String>> products;
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
     public String getAddressId() {
         return addressId;
+    }
+
+    public void setAddressId(String addressId) {
+        this.addressId = addressId;
     }
 
     public String getTimeStamp() {
@@ -49,10 +53,6 @@ public class OrdersObject implements Serializable {
 
     public void setTotalPrice(String totalPrice) {
         this.totalPrice = totalPrice;
-    }
-
-    public void setAddressId(String addressId) {
-        this.addressId = addressId;
     }
 
     public String getPaymentType() {

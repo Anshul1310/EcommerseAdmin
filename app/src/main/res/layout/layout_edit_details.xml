@@ -116,8 +116,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/product_sans_medium"
-            android:text="Save"
             android:padding="10dp"
+            android:text="Save"
             android:textColor="@color/apptheme"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -125,14 +125,14 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
         <TextView
+            android:id="@+id/dialog_edit_details_cancel_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_marginRight="10dp"
-            android:padding="10dp"
-            android:id="@+id/dialog_edit_details_cancel_btn"
             android:layout_marginBottom="20dp"
             android:fontFamily="@font/product_sans_medium"
+            android:padding="10dp"
             android:text="Cancel"
             android:textColor="#000"
             android:textSize="18sp"

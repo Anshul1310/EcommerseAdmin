@@ -47,11 +47,9 @@ public class AddProduct extends AppCompatActivity implements AdapterView.OnItemS
     private String categoryItem;
     private String productId;
     private boolean isSmallImageChanged, isBigImageChanged, isold;
-    private String smallurl, bigurl;
+    private String smallurl, bigUrl;
     private ProgressDialog progressDialog;
     private Uri smallUri, bigUri;
-    private CardView saveBtn, deleteBtn;
-    private Spinner unitSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,14 +62,14 @@ public class AddProduct extends AppCompatActivity implements AdapterView.OnItemS
         progressDialog.setCanceledOnTouchOutside(false);
         title = findViewById(R.id.add_product_title);
         description = findViewById(R.id.add_product_description);
-        saveBtn = findViewById(R.id.add_product_saveBtn);
+        CardView saveBtn = findViewById(R.id.add_product_saveBtn);
         price = findViewById(R.id.add_product_price);
         categoryItem = getIntent().getStringExtra("category");
-        unitSpinner = findViewById(R.id.add_product_spinner);
+        Spinner unitSpinner = findViewById(R.id.add_product_spinner);
         smallImage = findViewById(R.id.add_product_smallImage);
         bigImage = findViewById(R.id.add_product_bigImage);
         unit = findViewById(R.id.add_product_unit_measuring);
-        deleteBtn = findViewById(R.id.add_product_deleteBtn);
+        CardView deleteBtn = findViewById(R.id.add_product_deleteBtn);
         if (getIntent().getStringExtra("productId") == null) {
             deleteBtn.setVisibility(View.GONE);
             productId = UUID.randomUUID().toString();
@@ -82,36 +80,24 @@ public class AddProduct extends AppCompatActivity implements AdapterView.OnItemS
             title.setText(getIntent().getStringExtra("title"));
             description.setText(getIntent().getStringExtra("description"));
             Picasso.get().load(getIntent().getStringExtra("bigImage")).into(bigImage);
-            bigurl = getIntent().getStringExtra("bigImage");
+            bigUrl = getIntent().getStringExtra("bigImage");
             isold = true;
             categoryItem = getIntent().getStringExtra("category");
             smallurl = getIntent().getStringExtra("smallImage");
             Picasso.get().load(getIntent().getStringExtra("smallImage")).into(smallImage);
             Toast.makeText(this, getIntent().getStringExtra("measuringUnit"), Toast.LENGTH_SHORT).show();
             price.setText(getIntent().getStringExtra("price"));
-            deleteBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    new AlertDialog.Builder(AddProduct.this)
-                            .setTitle("Are you sure")
-                            .setMessage("This item will get deleted forever from the database.")
-                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    FirebaseDatabase.getInstance().getReference("products")
-                                            .child(productId).setValue(null).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-                                            startActivity(new Intent(AddProduct.this, MainActivity.class));
-                                            Toast.makeText(AddProduct.this, "Deleted Successfully", Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
-                                }
-                            })
-                            .setNegativeButton(android.R.string.no, null)
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .show();
-                }
-            });
+            deleteBtn.setOnClickListener(v -> new AlertDialog.Builder(AddProduct.this)
+                    .setTitle("Are you sure")
+                    .setMessage("This item will get deleted forever from the database.")
+                    .setPositiveButton(android.R.string.yes, (dialog, which) -> FirebaseDatabase.getInstance().getReference("products")
+                            .child(productId).setValue(null).addOnSuccessListener(aVoid -> {
+                                startActivity(new Intent(AddProduct.this, MainActivity.class));
+                                Toast.makeText(AddProduct.this, "Deleted Successfully", Toast.LENGTH_SHORT).show();
+                            }))
+                    .setNegativeButton(android.R.string.no, null)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show());
         }
         categoryItem = getIntent().getStringExtra("category");
         progressDialog = new ProgressDialog(this);
@@ -134,12 +120,9 @@ public class AddProduct extends AppCompatActivity implements AdapterView.OnItemS
         );
         unitSpinner.setAdapter(ad);
         unitSpinner.setOnItemSelectedListener(this);
-        saveBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!isErrorsInCatalogue()) {
-                    uploadImageToDb();
-                }
+        saveBtn.setOnClickListener(v -> {
+            if (!isErrorsInCatalogue()) {
+                uploadImageToDb();
             }
         });
     }
@@ -243,19 +226,16 @@ public class AddProduct extends AppCompatActivity implements AdapterView.OnItemS
         hashMap.put("title", title.getText().toString());
         hashMap.put("description", description.getText().toString());
         hashMap.put("smallImage", smallurl);
-        hashMap.put("bigImage", bigurl);
+        hashMap.put("bigImage", bigUrl);
         hashMap.put("category", categoryItem);
         hashMap.put("measuringUnit", unit.getText().toString());
         hashMap.put("price", price.getText().toString());
         FirebaseDatabase.getInstance().getReference("products").child(productId)
-                .setValue(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                progressDialog.cancel();
-                startActivity(new Intent(AddProduct.this, MainActivity.class));
-                Toast.makeText(AddProduct.this, "Uploaded Successfully", Toast.LENGTH_SHORT).show();
-            }
-        });
+                .setValue(hashMap).addOnSuccessListener(aVoid -> {
+                    progressDialog.cancel();
+                    startActivity(new Intent(AddProduct.this, MainActivity.class));
+                    Toast.makeText(AddProduct.this, "Uploaded Successfully", Toast.LENGTH_SHORT).show();
+                });
     }
 
     private void uploadImageToDb() {
@@ -264,65 +244,36 @@ public class AddProduct extends AppCompatActivity implements AdapterView.OnItemS
             if (isold) {
                 if (isBigImageChanged && !isSmallImageChanged) {
                     FirebaseStorage.getInstance().getReference("products").child(productId)
-                            .child("bigImage").putFile(bigUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            FirebaseStorage.getInstance().getReference("products").child(productId)
-                                    .child("bigImage").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri uri) {
-                                    bigurl = uri.toString();
-                                    saveProductToDb();
-                                }
-                            });
-                        }
-                    });
+                            .child("bigImage").putFile(bigUri).addOnSuccessListener(taskSnapshot -> FirebaseStorage.getInstance().getReference("products").child(productId)
+                                    .child("bigImage").getDownloadUrl().addOnSuccessListener(uri -> {
+                                        bigUrl = uri.toString();
+                                        saveProductToDb();
+                                    }));
                 } else if (isSmallImageChanged && !isBigImageChanged) {
                     FirebaseStorage.getInstance().getReference("products").child(productId)
-                            .child("smallImage").putFile(smallUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            FirebaseStorage.getInstance().getReference("products").child(productId)
-                                    .child("smallImage").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri uri) {
-                                    smallurl = uri.toString();
-                                    Toast.makeText(AddProduct.this, "image", Toast.LENGTH_SHORT).show();
-                                    saveProductToDb();
-                                }
-                            });
-                        }
-                    });
+                            .child("smallImage").putFile(smallUri).addOnSuccessListener(taskSnapshot -> FirebaseStorage.getInstance().getReference("products").child(productId)
+                                    .child("smallImage").getDownloadUrl().addOnSuccessListener(uri -> {
+                                        smallurl = uri.toString();
+                                        Toast.makeText(AddProduct.this, "image", Toast.LENGTH_SHORT).show();
+                                        saveProductToDb();
+                                    }));
                 } else if (isSmallImageChanged && isBigImageChanged) {
                     FirebaseStorage.getInstance().getReference("products").child(productId)
-                            .child("smallImage").putFile(smallUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            FirebaseStorage.getInstance().getReference("products").child(productId)
+                            .child("smallImage").putFile(smallUri).addOnSuccessListener(taskSnapshot -> FirebaseStorage.getInstance().getReference("products").child(productId)
                                     .child("smallImage").getDownloadUrl()
-                                    .addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                        @Override
-                                        public void onSuccess(Uri uri) {
-                                            smallurl = uri.toString();
-                                            FirebaseStorage.getInstance().getReference("products").child(productId)
-                                                    .child("bigImage").putFile(bigUri)
-                                                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                                        @Override
-                                                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                                            FirebaseStorage.getInstance().getReference("products").child(productId)
-                                                                    .child("bigImage").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                                                @Override
-                                                                public void onSuccess(Uri uri) {
-                                                                    bigurl = uri.toString();
-                                                                    saveProductToDb();
-                                                                }
-                                                            });
-                                                        }
-                                                    });
-                                        }
-                                    });
-                        }
-                    });
+                                    .addOnSuccessListener(uri -> {
+                                        smallurl = uri.toString();
+                                        FirebaseStorage.getInstance().getReference("products").child(productId)
+                                                .child("bigImage").putFile(bigUri)
+                                                .addOnSuccessListener(taskSnapshot1 -> FirebaseStorage.getInstance().getReference("products").child(productId)
+                                                        .child("bigImage").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                                    @Override
+                                                    public void onSuccess(Uri uri1) {
+                                                        bigUrl = uri1.toString();
+                                                        saveProductToDb();
+                                                    }
+                                                }));
+                                    }));
                 } else {
                     saveProductToDb();
                 }
@@ -346,7 +297,7 @@ public class AddProduct extends AppCompatActivity implements AdapterView.OnItemS
                                                                 .child("bigImage").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                                             @Override
                                                             public void onSuccess(Uri uri) {
-                                                                bigurl = uri.toString();
+                                                                bigUrl = uri.toString();
                                                                 saveProductToDb();
                                                             }
                                                         });

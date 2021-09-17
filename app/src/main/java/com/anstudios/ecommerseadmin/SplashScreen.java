@@ -17,7 +17,7 @@ public class SplashScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-        sharedPreferences = getSharedPreferences("com.anstudios.ecommerseadmin", MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("sharedPreference", MODE_PRIVATE);
         new CountDownTimer(2500, 2500) {
 
             @Override

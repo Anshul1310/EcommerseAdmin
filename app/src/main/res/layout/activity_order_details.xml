@@ -66,11 +66,11 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
+                    android:id="@+id/order_details_address"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:fontFamily="@font/inter"
-                    android:id="@+id/order_details_address"
                     android:text="College Road, Chamba, Tehri Garhwal, Uttarakhand - 249145"
                     android:textSize="15sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -95,11 +95,11 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
+                    android:id="@+id/mobile_order_details"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:fontFamily="@font/inter"
-                    android:id="@+id/mobile_order_details"
                     android:text="(+91) 8394013337"
                     android:textSize="15sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -360,10 +360,10 @@
                 android:background="@color/apptheme">
 
                 <TextView
+                    android:id="@+id/order_products_txt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:id="@+id/order_products_txt"
                     android:fontFamily="@font/product_sans_medium"
                     android:text="Ordered Products"
                     android:textColor="#fff"

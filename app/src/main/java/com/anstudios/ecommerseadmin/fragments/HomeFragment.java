@@ -3,7 +3,6 @@ package com.anstudios.ecommerseadmin.fragments;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.anstudios.ecommerseadmin.OrdersObject;
 import com.anstudios.ecommerseadmin.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,14 +24,13 @@ import java.util.concurrent.Executors;
 
 public class HomeFragment extends Fragment {
 
-    private View view;
     private TextView about, totalSale, totalCustomers, totalEarnings, totalProducts;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
         about = view.findViewById(R.id.home_about);
         totalSale = view.findViewById(R.id.frag_home_total_sales);
         totalCustomers = view.findViewById(R.id.frag_home_total_customers);
@@ -63,13 +60,13 @@ public class HomeFragment extends Fragment {
     }
 
 
-    private void getStoreAbout(){
+    private void getStoreAbout() {
         FirebaseDatabase
                 .getInstance().getReference("storeInfo").child("about")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        String aboutStr= (String) snapshot.getValue();
+                        String aboutStr = (String) snapshot.getValue();
                         about.setText(aboutStr);
                     }
 
@@ -79,6 +76,7 @@ public class HomeFragment extends Fragment {
                     }
                 });
     }
+
     private void fetchSalesAndRevenue() {
         FirebaseDatabase.getInstance().getReference("orders").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -88,7 +86,7 @@ public class HomeFragment extends Fragment {
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                         totalOrdersInt += (int) dataSnapshot.getChildrenCount();
                         for (DataSnapshot objectOrders : dataSnapshot.getChildren()) {
-                            HashMap<String,String> hashMap= (HashMap<String, String>) objectOrders.getValue();
+                            HashMap<String, String> hashMap = (HashMap<String, String>) objectOrders.getValue();
                             totalEarningInt += Integer.parseInt(hashMap.get("totalPrice"));
                         }
                         totalEarnings.setText(String.valueOf(totalEarningInt));
