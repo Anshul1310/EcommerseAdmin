@@ -23,17 +23,11 @@ import androidx.fragment.app.Fragment;
 
 import com.anstudios.ecommerseadmin.R;
 import com.anstudios.ecommerseadmin.SplashScreen;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.UploadTask;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionDeniedResponse;
@@ -96,8 +90,8 @@ public class SettingFragment extends Fragment {
             FirebaseDatabase.getInstance().getReference("storeInfo").child("storeImage").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if(snapshot.exists()){
-                        String url= (String) snapshot.getValue();
+                    if (snapshot.exists()) {
+                        String url = (String) snapshot.getValue();
                         Picasso.get().load(url).into(profileImage);
                     }
                 }
@@ -128,14 +122,14 @@ public class SettingFragment extends Fragment {
                     hashMap.put("storeEmail", dialogEmail.getText().toString());
                     FirebaseDatabase.getInstance().getReference("storeInfo")
                             .setValue(hashMap).addOnSuccessListener(aVoid -> {
-                                progressDialog.cancel();
-                                alertDialog.cancel();
-                                contactStoreName.setText(hashMap.get("storeName"));
-                                contactEmail.setText(hashMap.get("storeEmail"));
-                                contactAddress.setText(hashMap.get("storeAddress"));
-                                contactAbout.setText(hashMap.get("about"));
-                                Toast.makeText(getContext(), "Saved Successfully", Toast.LENGTH_SHORT).show();
-                            });
+                        progressDialog.cancel();
+                        alertDialog.cancel();
+                        contactStoreName.setText(hashMap.get("storeName"));
+                        contactEmail.setText(hashMap.get("storeEmail"));
+                        contactAddress.setText(hashMap.get("storeAddress"));
+                        contactAbout.setText(hashMap.get("about"));
+                        Toast.makeText(getContext(), "Saved Successfully", Toast.LENGTH_SHORT).show();
+                    });
                 });
                 dialogCancel.setOnClickListener(v1 -> alertDialog.cancel());
 
@@ -192,14 +186,14 @@ public class SettingFragment extends Fragment {
         progressDialog.show();
         FirebaseStorage.getInstance().getReference("storeInfo").child("storeImage")
                 .putFile(imagePath).addOnCompleteListener(task -> FirebaseStorage.getInstance().getReference("storeInfo").child("storeImage")
-                        .getDownloadUrl().addOnSuccessListener(uri -> {
-                            progressDialog.cancel();
-                            FirebaseDatabase.getInstance().getReference("storeInfo").child("storeImage")
-                                    .setValue(uri.toString());
-                        })).addOnFailureListener(e -> {
-                            progressDialog.cancel();
-                            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                        });
+                .getDownloadUrl().addOnSuccessListener(uri -> {
+                    progressDialog.cancel();
+                    FirebaseDatabase.getInstance().getReference("storeInfo").child("storeImage")
+                            .setValue(uri.toString());
+                })).addOnFailureListener(e -> {
+            progressDialog.cancel();
+            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+        });
     }
 
     @Override

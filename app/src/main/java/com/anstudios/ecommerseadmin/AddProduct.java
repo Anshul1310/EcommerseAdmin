@@ -3,7 +3,6 @@ package com.anstudios.ecommerseadmin;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -232,10 +231,10 @@ public class AddProduct extends AppCompatActivity implements AdapterView.OnItemS
         hashMap.put("price", price.getText().toString());
         FirebaseDatabase.getInstance().getReference("products").child(productId)
                 .setValue(hashMap).addOnSuccessListener(aVoid -> {
-                    progressDialog.cancel();
-                    startActivity(new Intent(AddProduct.this, MainActivity.class));
-                    Toast.makeText(AddProduct.this, "Uploaded Successfully", Toast.LENGTH_SHORT).show();
-                });
+            progressDialog.cancel();
+            startActivity(new Intent(AddProduct.this, MainActivity.class));
+            Toast.makeText(AddProduct.this, "Uploaded Successfully", Toast.LENGTH_SHORT).show();
+        });
     }
 
     private void uploadImageToDb() {
@@ -245,35 +244,35 @@ public class AddProduct extends AppCompatActivity implements AdapterView.OnItemS
                 if (isBigImageChanged && !isSmallImageChanged) {
                     FirebaseStorage.getInstance().getReference("products").child(productId)
                             .child("bigImage").putFile(bigUri).addOnSuccessListener(taskSnapshot -> FirebaseStorage.getInstance().getReference("products").child(productId)
-                                    .child("bigImage").getDownloadUrl().addOnSuccessListener(uri -> {
-                                        bigUrl = uri.toString();
-                                        saveProductToDb();
-                                    }));
+                            .child("bigImage").getDownloadUrl().addOnSuccessListener(uri -> {
+                                bigUrl = uri.toString();
+                                saveProductToDb();
+                            }));
                 } else if (isSmallImageChanged && !isBigImageChanged) {
                     FirebaseStorage.getInstance().getReference("products").child(productId)
                             .child("smallImage").putFile(smallUri).addOnSuccessListener(taskSnapshot -> FirebaseStorage.getInstance().getReference("products").child(productId)
-                                    .child("smallImage").getDownloadUrl().addOnSuccessListener(uri -> {
-                                        smallurl = uri.toString();
-                                        Toast.makeText(AddProduct.this, "image", Toast.LENGTH_SHORT).show();
-                                        saveProductToDb();
-                                    }));
+                            .child("smallImage").getDownloadUrl().addOnSuccessListener(uri -> {
+                                smallurl = uri.toString();
+                                Toast.makeText(AddProduct.this, "image", Toast.LENGTH_SHORT).show();
+                                saveProductToDb();
+                            }));
                 } else if (isSmallImageChanged && isBigImageChanged) {
                     FirebaseStorage.getInstance().getReference("products").child(productId)
                             .child("smallImage").putFile(smallUri).addOnSuccessListener(taskSnapshot -> FirebaseStorage.getInstance().getReference("products").child(productId)
-                                    .child("smallImage").getDownloadUrl()
-                                    .addOnSuccessListener(uri -> {
-                                        smallurl = uri.toString();
-                                        FirebaseStorage.getInstance().getReference("products").child(productId)
-                                                .child("bigImage").putFile(bigUri)
-                                                .addOnSuccessListener(taskSnapshot1 -> FirebaseStorage.getInstance().getReference("products").child(productId)
-                                                        .child("bigImage").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            .child("smallImage").getDownloadUrl()
+                            .addOnSuccessListener(uri -> {
+                                smallurl = uri.toString();
+                                FirebaseStorage.getInstance().getReference("products").child(productId)
+                                        .child("bigImage").putFile(bigUri)
+                                        .addOnSuccessListener(taskSnapshot1 -> FirebaseStorage.getInstance().getReference("products").child(productId)
+                                                .child("bigImage").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                                     @Override
                                                     public void onSuccess(Uri uri1) {
                                                         bigUrl = uri1.toString();
                                                         saveProductToDb();
                                                     }
                                                 }));
-                                    }));
+                            }));
                 } else {
                     saveProductToDb();
                 }

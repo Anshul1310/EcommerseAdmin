@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -42,10 +41,10 @@ public class MainActivity extends AppCompatActivity {
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-        TextView navName=findViewById(R.id.nav_bar_name);
-        TextView navEmail=findViewById(R.id.nav_bar_email);
-        navName.setText(SplashScreen.sharedPreferences.getString("name","John Doe"));
-        navEmail.setText(SplashScreen.sharedPreferences.getString("email","johnDoe@gmail.com"));
+        TextView navName = findViewById(R.id.nav_bar_name);
+        TextView navEmail = findViewById(R.id.nav_bar_email);
+        navName.setText(SplashScreen.sharedPreferences.getString("name", "John Doe"));
+        navEmail.setText(SplashScreen.sharedPreferences.getString("email", "johnDoe@gmail.com"));
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav_main);
         getSupportFragmentManager()
                 .beginTransaction()

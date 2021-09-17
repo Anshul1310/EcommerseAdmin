@@ -63,12 +63,12 @@ public class RegisterScreen extends AppCompatActivity {
                             hashMap.put("password", password.getText().toString());
                             FirebaseDatabase.getInstance().getReference("admins").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                     .setValue(hashMap).addOnSuccessListener(aVoid -> {
-                                        SplashScreen.sharedPreferences.edit().putString("name", hashMap.get("name")).apply();
-                                        SplashScreen.sharedPreferences.edit().putString("email", hashMap.get("email")).apply();
-                                        progressDialog.cancel();
-                                        Toast.makeText(RegisterScreen.this, "Registered Successfully", Toast.LENGTH_SHORT).show();
-                                        startActivity(new Intent(RegisterScreen.this, MainActivity.class));
-                                    }).addOnFailureListener(new OnFailureListener() {
+                                SplashScreen.sharedPreferences.edit().putString("name", hashMap.get("name")).apply();
+                                SplashScreen.sharedPreferences.edit().putString("email", hashMap.get("email")).apply();
+                                progressDialog.cancel();
+                                Toast.makeText(RegisterScreen.this, "Registered Successfully", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(RegisterScreen.this, MainActivity.class));
+                            }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
                                     progressDialog.cancel();

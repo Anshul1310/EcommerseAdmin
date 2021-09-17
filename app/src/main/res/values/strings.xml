@@ -1,9 +1,9 @@
 <resources>
-<!--    YOU CAN CHANGE THE APP NAME FROM HERE-->
+    <!--    YOU CAN CHANGE THE APP NAME FROM HERE-->
     <string name="app_name">Grofers Admin</string>
 
 
-<!--    // PLEASE DON'T CHANGE THESE STRING VALUES-->
+    <!--    // PLEASE DON'T CHANGE THESE STRING VALUES-->
     <string name="navigation_drawer_open">open</string>
     <string name="navigation_drawer_close">close</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
