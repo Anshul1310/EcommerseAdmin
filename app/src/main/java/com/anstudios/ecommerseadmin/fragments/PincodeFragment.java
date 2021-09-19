@@ -33,9 +33,6 @@ import java.util.HashMap;
 
 public class PincodeFragment extends Fragment {
 
-    private View view;
-    private RecyclerView recyclerView;
-    private CardView addProductBtn;
     private ArrayList<modelPincode> arrayList;
     private ProgressDialog progressDialog;
     private adapterPincode adapter;
@@ -45,14 +42,14 @@ public class PincodeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_pincode, container, false);
-        recyclerView = view.findViewById(R.id.pincode_recycler_view);
+        View view = inflater.inflate(R.layout.fragment_pincode, container, false);
+        RecyclerView recyclerView = view.findViewById(R.id.pincode_recycler_view);
         arrayList = new ArrayList<>();
         progressDialog = new ProgressDialog(getContext());
         progressDialog.setTitle("Please wait..");
         progressDialog.setMessage("We are getting alll products.");
         progressDialog.setCanceledOnTouchOutside(false);
-        addProductBtn = view.findViewById(R.id.add_pincode_btn);
+        CardView addProductBtn = view.findViewById(R.id.add_pincode_btn);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new adapterPincode(getContext(), arrayList);
         recyclerView.setAdapter(adapter);

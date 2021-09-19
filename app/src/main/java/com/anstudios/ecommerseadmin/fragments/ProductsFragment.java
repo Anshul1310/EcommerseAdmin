@@ -29,88 +29,67 @@ import java.util.HashMap;
 
 public class ProductsFragment extends Fragment {
 
-    private View view;
     private ProgressDialog progressDialog;
     private adaptersProducts adapterBakery, adapterFruits, adapterOils, adapterMeat, adapterBeverages, adapterDairyProducts;
-    private ImageView addBakery, addMeats, addFruitsVeges, addBeverages, addDairy, addOils;
-    private RecyclerView recyclerViewFruits, recyclerViewMeats, recyclerViewOils, recyclerViewBakery, recyclerViewDairy, recyclerViewBeverages;
     private ArrayList<modelProducts> arrayListFruits, arrayListMeats, arrayListBakery, arrayListBeverages, arrayListOils, arrayListDairy;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_products, container, false);
-        recyclerViewFruits = view.findViewById(R.id.product_recycler_fuits_veges);
-        recyclerViewBakery = view.findViewById(R.id.product_recycler_bakery_snacks);
-        recyclerViewBeverages = view.findViewById(R.id.product_recycler_beverages);
-        recyclerViewMeats = view.findViewById(R.id.product_recycler_meat_fish);
+        View view = inflater.inflate(R.layout.fragment_products, container, false);
+        RecyclerView recyclerViewFruits = view.findViewById(R.id.product_recycler_fuits_veges);
+        RecyclerView recyclerViewBakery = view.findViewById(R.id.product_recycler_bakery_snacks);
+        RecyclerView recyclerViewBeverages = view.findViewById(R.id.product_recycler_beverages);
+        RecyclerView recyclerViewMeats = view.findViewById(R.id.product_recycler_meat_fish);
         progressDialog = new ProgressDialog(getContext());
         progressDialog.setTitle("Please wait..");
         progressDialog.setMessage("We are getting alll products.");
         progressDialog.setCanceledOnTouchOutside(false);
-        recyclerViewOils = view.findViewById(R.id.product_recycler_oils_ghee);
-        recyclerViewDairy = view.findViewById(R.id.product_recycler_dairy_products);
+        RecyclerView recyclerViewOils = view.findViewById(R.id.product_recycler_oils_ghee);
+        RecyclerView recyclerViewDairy = view.findViewById(R.id.product_recycler_dairy_products);
 
-        addBakery = view.findViewById(R.id.bakery_snacks_add_btn);
-        addOils = view.findViewById(R.id.oils_ghee_add_btn);
-        addMeats = view.findViewById(R.id.meats_fishes_add_btn);
-        addBeverages = view.findViewById(R.id.beverages_add_btn);
-        addFruitsVeges = view.findViewById(R.id.fruits_veges_add_btn);
-        addDairy = view.findViewById(R.id.dairy_products_add_btn);
+        ImageView addBakery = view.findViewById(R.id.bakery_snacks_add_btn);
+        ImageView addOils = view.findViewById(R.id.oils_ghee_add_btn);
+        ImageView addMeats = view.findViewById(R.id.meats_fishes_add_btn);
+        ImageView addBeverages = view.findViewById(R.id.beverages_add_btn);
+        ImageView addFruitsVeges = view.findViewById(R.id.fruits_veges_add_btn);
+        ImageView addDairy = view.findViewById(R.id.dairy_products_add_btn);
 
-        addBeverages.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), AddProduct.class);
-                intent.putExtra("category", "beverages");
-                startActivity(intent);
-            }
+        addBeverages.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), AddProduct.class);
+            intent.putExtra("category", "beverages");
+            startActivity(intent);
         });
 
-        addFruitsVeges.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), AddProduct.class);
-                intent.putExtra("category", "fruitsAndVeges");
-                startActivity(intent);
-            }
+        addFruitsVeges.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), AddProduct.class);
+            intent.putExtra("category", "fruitsAndVeges");
+            startActivity(intent);
         });
 
-        addBakery.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), AddProduct.class);
-                intent.putExtra("category", "bakery");
-                startActivity(intent);
-            }
+        addBakery.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), AddProduct.class);
+            intent.putExtra("category", "bakery");
+            startActivity(intent);
         });
 
-        addOils.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), AddProduct.class);
-                intent.putExtra("category", "oilsAndGhee");
-                startActivity(intent);
-            }
+        addOils.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), AddProduct.class);
+            intent.putExtra("category", "oilsAndGhee");
+            startActivity(intent);
         });
 
-        addMeats.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), AddProduct.class);
-                intent.putExtra("category", "meats");
-                startActivity(intent);
-            }
+        addMeats.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), AddProduct.class);
+            intent.putExtra("category", "meats");
+            startActivity(intent);
         });
 
-        addDairy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), AddProduct.class);
-                intent.putExtra("category", "dairyProducts");
-                startActivity(intent);
-            }
+        addDairy.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), AddProduct.class);
+            intent.putExtra("category", "dairyProducts");
+            startActivity(intent);
         });
 
 

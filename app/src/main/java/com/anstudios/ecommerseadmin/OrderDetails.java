@@ -46,7 +46,7 @@ public class OrderDetails extends AppCompatActivity {
     String status;
     private RecyclerView recyclerView;
     private ProgressBar progressBar;
-    private TextView order_deatilsTxt;
+    private TextView orderDetailsTxt;
     private TextView addressCustomer;
     private TextView phoneNumber;
     private TextView orderId;
@@ -76,7 +76,7 @@ public class OrderDetails extends AppCompatActivity {
             TextView price = findViewById(R.id.order_details_price);
             statusOfOrder = findViewById(R.id.orderDetails_status);
             TextView date = findViewById(R.id.order_details_date);
-            order_deatilsTxt = findViewById(R.id.orderedDetailsTxt);
+            orderDetailsTxt = findViewById(R.id.orderedDetailsTxt);
             ordersObject = (OrdersObject) getIntent().getSerializableExtra("OrdersObject");
             statusOfOrder.setText(ordersObject.getStatus());
             date.setText(ordersObject.getTimeStamp());
@@ -92,7 +92,7 @@ public class OrderDetails extends AppCompatActivity {
                 recyclerView.setVisibility(View.VISIBLE);
                 orderDetails.setVisibility(View.INVISIBLE);
                 orderedProductsTxt.setTextColor(ContextCompat.getColor(OrderDetails.this, R.color.white));
-                order_deatilsTxt.setTextColor(ContextCompat.getColor(OrderDetails.this, R.color.apptheme));
+                orderDetailsTxt.setTextColor(ContextCompat.getColor(OrderDetails.this, R.color.apptheme));
                 orderDetailsBtn.setBackgroundColor(ContextCompat.getColor(OrderDetails.this, R.color.white));
                 orderProductsBtn.setBackgroundColor(ContextCompat.getColor(OrderDetails.this, R.color.apptheme));
             });
@@ -100,7 +100,7 @@ public class OrderDetails extends AppCompatActivity {
                 recyclerView.setVisibility(View.INVISIBLE);
                 orderedProductsTxt.setTextColor(ContextCompat.getColor(OrderDetails.this, R.color.apptheme));
                 orderDetails.setVisibility(View.VISIBLE);
-                order_deatilsTxt.setTextColor(ContextCompat.getColor(OrderDetails.this, R.color.white));
+                orderDetailsTxt.setTextColor(ContextCompat.getColor(OrderDetails.this, R.color.white));
                 orderDetailsBtn.setBackgroundColor(ContextCompat.getColor(OrderDetails.this, R.color.apptheme));
                 orderProductsBtn.setBackgroundColor(ContextCompat.getColor(OrderDetails.this, R.color.white));
             });
