@@ -172,7 +172,7 @@ public class OrderDetails extends AppCompatActivity {
                                     public Map<String, String> getHeaders() {
                                         Map<String, String> header = new HashMap<>();
                                         header.put("content-type", "application/json");
-                                        header.put("authorization", "key=AAAAc0PT8sk:APA91bEDZS6mG28c5wQxOilIx66A2fD_uqavz1OCBeH3TUU0KfSa_5JjrL8R3HALkzg7ZB__-KjaSejtWMcghY03Q_EJfXs9jS8BUxdFmMcRL4sPazldZeqMtqO05ugp9U09GtNkb692");
+                                        header.put("authorization", "key="+Constants.FCM_SERVER_KEY);
                                         return header;
                                     }
                                 };
