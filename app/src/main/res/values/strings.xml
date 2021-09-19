@@ -16,5 +16,7 @@
     <string name="PAYONDELIEVRY">Pay on Delivery</string>
     <string name="PAIDONLINE">Paid Online</string>
     <string name="pincode">Pincode</string>
+    <string name="availbale">Available</string>
+    <string name="NOT_AVAILBLE">Not Available</string>
 
 </resources>

@@ -80,9 +80,9 @@ public class OrderDetails extends AppCompatActivity {
             ordersObject = (OrdersObject) getIntent().getSerializableExtra("OrdersObject");
             statusOfOrder.setText(ordersObject.getStatus());
             date.setText(ordersObject.getTimeStamp());
-            price.setText(ordersObject.getTotalPrice());
+            price.setText(Constants.CURRENCY_SIGN.concat(ordersObject.getTotalPrice()));
             paymentMode.setText(ordersObject.getPaymentType());
-            orderId.setText("Order Id: " + ordersObject.getIndex());
+            orderId.setText("Order Id: #" + ordersObject.getIndex());
             orderProductsBtn = findViewById(R.id.order_produts_btn);
             ArrayList<modelEditDetails> arrayList = new ArrayList<>();
             adapterEditDetails adapter = new adapterEditDetails(this, arrayList);
@@ -194,12 +194,13 @@ public class OrderDetails extends AppCompatActivity {
 
     private void successMethod() {
         progressBar.setVisibility(View.INVISIBLE);
+        customerMessage.setText("");
         Toast.makeText(OrderDetails.this, "Sent Successfully.", Toast.LENGTH_SHORT).show();
     }
 
     private void failMethod() {
         progressBar.setVisibility(View.INVISIBLE);
-        Toast.makeText(OrderDetails.this, "There swas an error.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(OrderDetails.this, "There was an error.", Toast.LENGTH_SHORT).show();
     }
 
     public void editOrderStatusBtn(View view) {
@@ -271,15 +272,10 @@ public class OrderDetails extends AppCompatActivity {
                         .child(getIntent().getStringExtra("customerUid"))
                         .child(getIntent().getStringExtra("orderId"))
                         .child("status").setValue(status).addOnSuccessListener(aVoid -> {
-                    FirebaseDatabase.getInstance().getReference("orders")
-                            .child(getIntent().getStringExtra("customerUid"))
-                            .child("orderId").child("status").setValue(status)
-                            .addOnSuccessListener(aVoid1 -> {
-                                alertDialog.cancel();
-                                sendAndUploadNotification("Your products of " + orderId.getText().toString() + " is " + status);
-                                Toast.makeText(OrderDetails.this, "Changed Successfully", Toast.LENGTH_SHORT).show();
-                            });
-
+                    alertDialog.cancel();
+                    statusOfOrder.setText(status);
+                    sendAndUploadNotification("Your products of " + orderId.getText().toString() + " is " + status);
+                    Toast.makeText(OrderDetails.this, "Changed Successfully", Toast.LENGTH_SHORT).show();
                 });
             });
 

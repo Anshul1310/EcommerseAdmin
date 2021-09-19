@@ -57,7 +57,6 @@ public class adapterOrders extends RecyclerView.Adapter<adapterOrders.viewHolder
             } else {
                 holder.paymentType.setText(context.getString(R.string.PAIDONLINE));
             }
-            Toast.makeText(context, arrayList.get(position).getPaymentType(), Toast.LENGTH_SHORT).show();
             holder.price.setText(Constants.CURRENCY_SIGN.concat(arrayList.get(position).getTotalPrice()));
             holder.date.setText(arrayList.get(position).getTimeStamp());
             holder.orderId.setText("Order Id : #" + arrayList.get(position).getIndex());

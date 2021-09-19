@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.anstudios.ecommerseadmin.Constants;
 import com.anstudios.ecommerseadmin.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -89,7 +90,7 @@ public class HomeFragment extends Fragment {
                             HashMap<String, String> hashMap = (HashMap<String, String>) objectOrders.getValue();
                             totalEarningInt += Integer.parseInt(hashMap.get("totalPrice"));
                         }
-                        totalEarnings.setText(String.valueOf(totalEarningInt));
+                        totalEarnings.setText(Constants.CURRENCY_SIGN.concat(String.valueOf(totalEarningInt)));
                     }
                     totalSale.setText(String.valueOf(totalOrdersInt));
                 } catch (Exception e) {

@@ -46,8 +46,10 @@ public class SettingFragment extends Fragment {
     private TextView contactEmail, contactAbout, contactStoreName, contactAddress;
     private TextView email, name;
     private CircleImageView profileImage;
+    private String lastIndex;
     private ProgressDialog progressDialog;
     private Uri imagePath;
+    private String imageUrl;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -87,20 +89,6 @@ public class SettingFragment extends Fragment {
                 }
 
             }).check());
-            FirebaseDatabase.getInstance().getReference("storeInfo").child("storeImage").addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (snapshot.exists()) {
-                        String url = (String) snapshot.getValue();
-                        Picasso.get().load(url).into(profileImage);
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
             editDialog.setOnClickListener(v -> {
                 final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 View vobj = LayoutInflater.from(getContext()).inflate(R.layout.layout_edit_details, null);
@@ -119,6 +107,8 @@ public class SettingFragment extends Fragment {
                     hashMap.put("about", dialogAbout.getText().toString());
                     hashMap.put("storeAddress", dialogAddress.getText().toString());
                     hashMap.put("storeName", dialogName.getText().toString());
+                    hashMap.put("lastIndex",lastIndex);
+                    hashMap.put("storeImage",imageUrl);
                     hashMap.put("storeEmail", dialogEmail.getText().toString());
                     FirebaseDatabase.getInstance().getReference("storeInfo")
                             .setValue(hashMap).addOnSuccessListener(aVoid -> {
@@ -157,6 +147,13 @@ public class SettingFragment extends Fragment {
                             if (hashMap.containsKey("about")) {
                                 contactAbout.setText(hashMap.get("about"));
                             }
+                            if(hashMap.containsKey("lastIndex")){
+                                lastIndex=hashMap.get("lastIndex");
+                            }
+                            if(hashMap.containsKey("storeImage")){
+                                imageUrl=hashMap.get("storeImage");
+                                Picasso.get().load(hashMap.get("storeImage")).into(profileImage);
+                            }
                             if (hashMap.containsKey("storeAddress")) {
                                 contactAddress.setText(hashMap.get("storeAddress"));
                             }
@@ -188,6 +185,7 @@ public class SettingFragment extends Fragment {
                 .putFile(imagePath).addOnCompleteListener(task -> FirebaseStorage.getInstance().getReference("storeInfo").child("storeImage")
                 .getDownloadUrl().addOnSuccessListener(uri -> {
                     progressDialog.cancel();
+                    imageUrl=uri.toString();
                     FirebaseDatabase.getInstance().getReference("storeInfo").child("storeImage")
                             .setValue(uri.toString());
                 })).addOnFailureListener(e -> {
