@@ -27,7 +27,6 @@ import java.util.ArrayList;
 
 public class OrdersFragment extends Fragment {
 
-    private View view;
     private RecyclerView recyclerView;
     private ConstraintLayout dispatchedBtn, allBtn, onTheWayBtn, preparingBtn, deliveredBtn;
     private ArrayList<OrdersObject> arrayList;
@@ -42,7 +41,7 @@ public class OrdersFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_orders, container, false);
+        View view = inflater.inflate(R.layout.fragment_orders, container, false);
         progressBar = view.findViewById(R.id.progressBar2);
         progressBar.setVisibility(View.VISIBLE);
         arrayList = new ArrayList<>();

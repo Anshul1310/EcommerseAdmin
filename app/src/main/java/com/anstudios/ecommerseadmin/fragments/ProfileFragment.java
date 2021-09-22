@@ -11,13 +11,11 @@ import com.anstudios.ecommerseadmin.R;
 
 public class ProfileFragment extends Fragment {
 
-    private View view;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_profile, container, false);
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
         return view;
     }
 }

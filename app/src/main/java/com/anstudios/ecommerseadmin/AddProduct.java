@@ -45,7 +45,7 @@ public class AddProduct extends AppCompatActivity implements AdapterView.OnItemS
     private String categoryItem;
     private String productId;
     private boolean isSmallImageChanged, isBigImageChanged, isSold;
-    private String smallurl, bigUrl;
+    private String smallUrl, bigUrl;
     private ProgressDialog progressDialog;
     private Uri smallUri, bigUri;
 
@@ -81,7 +81,7 @@ public class AddProduct extends AppCompatActivity implements AdapterView.OnItemS
             bigUrl = getIntent().getStringExtra("bigImage");
             isSold = true;
             categoryItem = getIntent().getStringExtra("category");
-            smallurl = getIntent().getStringExtra("smallImage");
+            smallUrl = getIntent().getStringExtra("smallImage");
             Picasso.get().load(getIntent().getStringExtra("smallImage")).into(smallImage);
             Toast.makeText(this, getIntent().getStringExtra("measuringUnit"), Toast.LENGTH_SHORT).show();
             price.setText(getIntent().getStringExtra("price"));
@@ -223,7 +223,7 @@ public class AddProduct extends AppCompatActivity implements AdapterView.OnItemS
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("title", title.getText().toString());
         hashMap.put("description", description.getText().toString());
-        hashMap.put("smallImage", smallurl);
+        hashMap.put("smallImage", smallUrl);
         hashMap.put("bigImage", bigUrl);
         hashMap.put("category", categoryItem);
         hashMap.put("measuringUnit", unit.getText().toString());
@@ -251,7 +251,7 @@ public class AddProduct extends AppCompatActivity implements AdapterView.OnItemS
                     FirebaseStorage.getInstance().getReference("products").child(productId)
                             .child("smallImage").putFile(smallUri).addOnSuccessListener(taskSnapshot -> FirebaseStorage.getInstance().getReference("products").child(productId)
                             .child("smallImage").getDownloadUrl().addOnSuccessListener(uri -> {
-                                smallurl = uri.toString();
+                                smallUrl = uri.toString();
                                 Toast.makeText(AddProduct.this, "image", Toast.LENGTH_SHORT).show();
                                 saveProductToDb();
                             }));
@@ -260,7 +260,7 @@ public class AddProduct extends AppCompatActivity implements AdapterView.OnItemS
                             .child("smallImage").putFile(smallUri).addOnSuccessListener(taskSnapshot -> FirebaseStorage.getInstance().getReference("products").child(productId)
                             .child("smallImage").getDownloadUrl()
                             .addOnSuccessListener(uri -> {
-                                smallurl = uri.toString();
+                                smallUrl = uri.toString();
                                 FirebaseStorage.getInstance().getReference("products").child(productId)
                                         .child("bigImage").putFile(bigUri)
                                         .addOnSuccessListener(taskSnapshot1 -> FirebaseStorage.getInstance().getReference("products").child(productId)
@@ -278,20 +278,20 @@ public class AddProduct extends AppCompatActivity implements AdapterView.OnItemS
             } else {
                 FirebaseStorage.getInstance().getReference("products").child(productId)
                         .child("smallImage").putFile(smallUri).addOnSuccessListener(taskSnapshot -> FirebaseStorage.getInstance().getReference("products").child(productId)
-                                .child("smallImage").getDownloadUrl()
-                                .addOnSuccessListener(uri -> {
-                                    smallurl = uri.toString();
-                                    FirebaseStorage.getInstance().getReference("products").child(productId)
-                                            .child("bigImage").putFile(bigUri)
-                                            .addOnSuccessListener(taskSnapshot12 -> FirebaseStorage.getInstance().getReference("products").child(productId)
-                                                    .child("bigImage").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        .child("smallImage").getDownloadUrl()
+                        .addOnSuccessListener(uri -> {
+                            smallUrl = uri.toString();
+                            FirebaseStorage.getInstance().getReference("products").child(productId)
+                                    .child("bigImage").putFile(bigUri)
+                                    .addOnSuccessListener(taskSnapshot12 -> FirebaseStorage.getInstance().getReference("products").child(productId)
+                                            .child("bigImage").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                                 @Override
                                                 public void onSuccess(Uri uri12) {
                                                     bigUrl = uri12.toString();
                                                     saveProductToDb();
                                                 }
                                             }));
-                                }));
+                        }));
             }
         } catch (Exception exception) {
             Toast.makeText(this, exception.getMessage(), Toast.LENGTH_SHORT).show();

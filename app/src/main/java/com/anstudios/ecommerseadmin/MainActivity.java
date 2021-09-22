@@ -98,41 +98,32 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addNavListener() {
-        findViewById(R.id.nav_bar_home_btn).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                drawerLayout.closeDrawer(GravityCompat.START);
+        findViewById(R.id.nav_bar_home_btn).setOnClickListener(v -> {
+            drawerLayout.closeDrawer(GravityCompat.START);
 
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                        .replace(R.id.frame_layout, new HomeFragment())
-                        .commit();
-            }
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                    .replace(R.id.frame_layout, new HomeFragment())
+                    .commit();
         });
-        findViewById(R.id.nav_bar_products_btn).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                drawerLayout.closeDrawer(GravityCompat.START);
+        findViewById(R.id.nav_bar_products_btn).setOnClickListener(v -> {
+            drawerLayout.closeDrawer(GravityCompat.START);
 
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                        .replace(R.id.frame_layout, new ProductsFragment())
-                        .commit();
-            }
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                    .replace(R.id.frame_layout, new ProductsFragment())
+                    .commit();
         });
-        findViewById(R.id.nav_bar_pincode_btn).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                drawerLayout.closeDrawer(GravityCompat.START);
+        findViewById(R.id.nav_bar_pincode_btn).setOnClickListener(v -> {
+            drawerLayout.closeDrawer(GravityCompat.START);
 
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                        .replace(R.id.frame_layout, new PincodeFragment())
-                        .commit();
-            }
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                    .replace(R.id.frame_layout, new PincodeFragment())
+                    .commit();
         });
         findViewById(R.id.nav_bar_orders_btn).setOnClickListener(v -> {
             drawerLayout.closeDrawer(GravityCompat.START);

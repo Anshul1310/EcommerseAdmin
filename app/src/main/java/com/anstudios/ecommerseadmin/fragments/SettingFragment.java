@@ -91,16 +91,16 @@ public class SettingFragment extends Fragment {
             }).check());
             editDialog.setOnClickListener(v -> {
                 final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                View vobj = LayoutInflater.from(getContext()).inflate(R.layout.layout_edit_details, null);
-                builder.setView(vobj);
+                View vObj = LayoutInflater.from(getContext()).inflate(R.layout.layout_edit_details, null);
+                builder.setView(vObj);
                 AlertDialog alertDialog = builder.create();
                 alertDialog.setCanceledOnTouchOutside(false);
-                EditText dialogName = vobj.findViewById(R.id.dialog_edit_details_store_name);
-                EditText dialogEmail = vobj.findViewById(R.id.dialog_edit_details_email);
-                EditText dialogAddress = vobj.findViewById(R.id.dialog_edit_details_store_address);
-                EditText dialogAbout = vobj.findViewById(R.id.dialog_edit_details_about);
-                TextView dialogCancel = vobj.findViewById(R.id.dialog_edit_details_cancel_btn);
-                TextView dialogSave = vobj.findViewById(R.id.dialog_edit_details_save_btn);
+                EditText dialogName = vObj.findViewById(R.id.dialog_edit_details_store_name);
+                EditText dialogEmail = vObj.findViewById(R.id.dialog_edit_details_email);
+                EditText dialogAddress = vObj.findViewById(R.id.dialog_edit_details_store_address);
+                EditText dialogAbout = vObj.findViewById(R.id.dialog_edit_details_about);
+                TextView dialogCancel = vObj.findViewById(R.id.dialog_edit_details_cancel_btn);
+                TextView dialogSave = vObj.findViewById(R.id.dialog_edit_details_save_btn);
                 dialogSave.setOnClickListener(v12 -> {
                     progressDialog.show();
                     HashMap<String, String> hashMap = new HashMap<>();

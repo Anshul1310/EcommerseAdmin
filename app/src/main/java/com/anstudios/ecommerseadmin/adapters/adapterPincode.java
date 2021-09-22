@@ -46,7 +46,7 @@ public class adapterPincode extends RecyclerView.Adapter<adapterPincode.viewHold
         progressDialog.setTitle("Please wait..");
         progressDialog.setMessage("We are getting all products.");
         progressDialog.setCanceledOnTouchOutside(false);
-        holder.pincode.setText(arrayList.get(position).getPincode());
+        holder.pinCode.setText(arrayList.get(position).getPincode());
         holder.charge.setText(Constants.CURRENCY_SIGN.concat(arrayList.get(position).getDeliveryCharge()));
         holder.editBtn.setOnClickListener(v -> {
             try {
@@ -59,17 +59,17 @@ public class adapterPincode extends RecyclerView.Adapter<adapterPincode.viewHold
                 EditText priceDialog = vobj.findViewById(R.id.dialog_pincode_charge);
                 TextView cancelBtn = vobj.findViewById(R.id.dialog_pincode_cancel_btn);
                 TextView saveBtn = vobj.findViewById(R.id.dialog_pincode_save_btn);
-                CheckBox codavail = vobj.findViewById(R.id.dialog_pincode_checkbox);
+                CheckBox codeAvail = vobj.findViewById(R.id.dialog_pincode_checkbox);
                 pincodeDialog.setText(arrayList.get(position).getPincode());
                 priceDialog.setText(Constants.CURRENCY_SIGN.concat(arrayList.get(position).getDeliveryCharge()));
                 if (arrayList.get(position).getCodAvailable().equals("true")) {
-                    codavail.setChecked(true);
+                    codeAvail.setChecked(true);
                 }
-                codavail.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                codeAvail.setOnCheckedChangeListener((buttonView, isChecked) -> {
                     if (isChecked) {
-                        codavail.setText(context.getString(R.string.availbale));
+                        codeAvail.setText(context.getString(R.string.availbale));
                     } else {
-                        codavail.setText(context.getString(R.string.NOT_AVAILBLE));
+                        codeAvail.setText(context.getString(R.string.NOT_AVAILBLE));
                     }
                 });
                 saveBtn.setOnClickListener(v1 -> {
@@ -78,7 +78,7 @@ public class adapterPincode extends RecyclerView.Adapter<adapterPincode.viewHold
                         progressDialog.show();
                         HashMap<String, String> hashMap = new HashMap<>();
                         hashMap.put("deliveryCharge", priceDialog.getText().toString());
-                        if (codavail.isChecked()) {
+                        if (codeAvail.isChecked()) {
                             hashMap.put("codAvailable", "true");
                         } else {
                             hashMap.put("codAvailable", "false");
@@ -115,14 +115,14 @@ public class adapterPincode extends RecyclerView.Adapter<adapterPincode.viewHold
     }
 
     public static class viewHolder extends RecyclerView.ViewHolder {
-        private final TextView pincode;
+        private final TextView pinCode;
         private final TextView charge;
         private final CardView editBtn;
         private final CheckBox codAvailable;
 
         public viewHolder(@NonNull View itemView) {
             super(itemView);
-            pincode = itemView.findViewById(R.id.layout_pincode_delivery_pincode);
+            pinCode = itemView.findViewById(R.id.layout_pincode_delivery_pincode);
             charge = itemView.findViewById(R.id.layout_pincode_delivery_charge);
             editBtn = itemView.findViewById(R.id.layout_pincode_edit_btn);
             codAvailable = itemView.findViewById(R.id.layout_pincode_cod_checkbox);

@@ -59,52 +59,43 @@ public class PincodeFragment extends Fragment {
             public void onClick(View v) {
                 try {
                     final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                    View vobj = LayoutInflater.from(getContext()).inflate(R.layout.layout_add_pincodes, null);
-                    builder.setView(vobj);
+                    View vObj = LayoutInflater.from(getContext()).inflate(R.layout.layout_add_pincodes, null);
+                    builder.setView(vObj);
                     AlertDialog alertDialog = builder.create();
                     alertDialog.setCanceledOnTouchOutside(false);
-                    EditText pincode = vobj.findViewById(R.id.dialog_pincode_add);
-                    EditText price = vobj.findViewById(R.id.dialog_pincode_charge);
-                    CheckBox codavail = vobj.findViewById(R.id.dialog_pincode_checkbox);
-                    TextView cancelBtn = vobj.findViewById(R.id.dialog_pincode_cancel_btn);
-                    TextView saveBtn = vobj.findViewById(R.id.dialog_pincode_save_btn);
-                    codavail.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                        @Override
-                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                            if (isChecked) {
-                                codavail.setText("Available");
-                            } else {
-                                codavail.setText("Not Available");
-                            }
+                    EditText pinCode = vObj.findViewById(R.id.dialog_pincode_add);
+                    EditText price = vObj.findViewById(R.id.dialog_pincode_charge);
+                    CheckBox codeAvail = vObj.findViewById(R.id.dialog_pincode_checkbox);
+                    TextView cancelBtn = vObj.findViewById(R.id.dialog_pincode_cancel_btn);
+                    TextView saveBtn = vObj.findViewById(R.id.dialog_pincode_save_btn);
+                    codeAvail.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                        if (isChecked) {
+                            codeAvail.setText("Available");
+                        } else {
+                            codeAvail.setText("Not Available");
                         }
                     });
-                    saveBtn.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            if (!pincode.getText().toString().isEmpty() &&
-                                    !price.getText().toString().isEmpty()) {
-                                HashMap<String, String> hashMap = new HashMap<>();
-                                hashMap.put("deliveryCharge", price.getText().toString());
-                                if (codavail.isChecked()) {
-                                    hashMap.put("codAvailable", "true");
-                                } else {
-                                    hashMap.put("codAvailable", "false");
-                                }
-                                FirebaseDatabase.getInstance().getReference("pincodes")
-                                        .child(pincode.getText().toString())
-                                        .setValue(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
+                    saveBtn.setOnClickListener(v1 -> {
+                        if (!pinCode.getText().toString().isEmpty() &&
+                                !price.getText().toString().isEmpty()) {
+                            HashMap<String, String> hashMap = new HashMap<>();
+                            hashMap.put("deliveryCharge", price.getText().toString());
+                            if (codeAvail.isChecked()) {
+                                hashMap.put("codAvailable", "true");
+                            } else {
+                                hashMap.put("codAvailable", "false");
+                            }
+                            FirebaseDatabase.getInstance().getReference("pincodes")
+                                    .child(pinCode.getText().toString())
+                                    .setValue(hashMap).addOnSuccessListener(aVoid -> {
                                         alertDialog.cancel();
                                         Toast.makeText(getContext(), "Saved Successfully", Toast.LENGTH_SHORT).show();
                                         getDataPincode();
-                                    }
-                                });
-                            } else {
-                                Toast.makeText(getContext(), "Blank fields cannot be processed.", Toast.LENGTH_SHORT).show();
-                            }
-
+                                    });
+                        } else {
+                            Toast.makeText(getContext(), "Blank fields cannot be processed.", Toast.LENGTH_SHORT).show();
                         }
+
                     });
                     cancelBtn.setOnClickListener(new View.OnClickListener() {
                         @Override

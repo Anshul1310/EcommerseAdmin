@@ -37,7 +37,7 @@ public class adaptersProducts extends RecyclerView.Adapter<adaptersProducts.view
 
     @Override
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
-        holder.itemtitle.setText(arrayList.get(position).getName());
+        holder.itemTitle.setText(arrayList.get(position).getName());
         holder.price.setText(Constants.CURRENCY_SIGN.concat(arrayList.get(position).getPrice()));
         holder.measuringUnit.setText("Price for 1 " + arrayList.get(position).getMeasuringUnit());
         holder.editBtn.setOnClickListener(new View.OnClickListener() {
@@ -65,13 +65,15 @@ public class adaptersProducts extends RecyclerView.Adapter<adaptersProducts.view
 
     public class viewHolder extends RecyclerView.ViewHolder {
         private ImageView image;
-        private TextView itemtitle, measuringUnit, price;
-        private ImageView editBtn;
+        private final TextView itemTitle;
+        private final TextView measuringUnit;
+        private final TextView price;
+        private final ImageView editBtn;
 
         public viewHolder(@NonNull View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.cart_image);
-            itemtitle = itemView.findViewById(R.id.cart_title);
+            itemTitle = itemView.findViewById(R.id.cart_title);
             measuringUnit = itemView.findViewById(R.id.cart_price_rate);
             price = itemView.findViewById(R.id.cart_item_price);
             editBtn = itemView.findViewById(R.id.cart_edit_button);
