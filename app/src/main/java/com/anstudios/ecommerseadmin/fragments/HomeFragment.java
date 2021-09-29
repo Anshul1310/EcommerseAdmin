@@ -82,13 +82,13 @@ public class HomeFragment extends Fragment {
         FirebaseDatabase.getInstance().getReference("orders").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                int totalOrdersInt = 0, totalEarningInt = 0;
+                double totalOrdersInt = 0, totalEarningInt = 0;
                 try {
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                        totalOrdersInt += (int) dataSnapshot.getChildrenCount();
+                        totalOrdersInt +=  dataSnapshot.getChildrenCount();
                         for (DataSnapshot objectOrders : dataSnapshot.getChildren()) {
                             HashMap<String, String> hashMap = (HashMap<String, String>) objectOrders.getValue();
-                            totalEarningInt += Integer.parseInt(hashMap.get("totalPrice"));
+                            totalEarningInt += Double.parseDouble(hashMap.get("totalPrice"));
                         }
                         totalEarnings.setText(Constants.CURRENCY_SIGN.concat(String.valueOf(totalEarningInt)));
                     }

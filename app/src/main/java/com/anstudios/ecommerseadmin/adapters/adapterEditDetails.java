@@ -39,7 +39,7 @@ public class adapterEditDetails extends RecyclerView.Adapter<adapterEditDetails.
         try {
             holder.title.setText(arrayList.get(position).getTitle());
             holder.measuringUnit.setText(arrayList.get(position).getMeasuringUnit().replace("1", arrayList.get(position).getQuantity()));
-            holder.price.setText(Constants.CURRENCY_SIGN.concat(String.valueOf(Integer.parseInt(arrayList.get(position).getPrice()) * Integer.parseInt(arrayList.get(position).getQuantity()))));
+            holder.price.setText(Constants.CURRENCY_SIGN.concat(String.valueOf(Double.parseDouble(arrayList.get(position).getPrice()) * Double.parseDouble(arrayList.get(position).getQuantity()))));
             Picasso.get().load(arrayList.get(position).getImage()).into(holder.image);
         } catch (Exception e) {
             Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
